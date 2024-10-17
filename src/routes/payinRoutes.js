@@ -46,7 +46,7 @@ const payinController = require('../controllers/payinController');
 
 /**
  * @swagger
- * /payin/providers/{reference}:
+ * api/payin/providers/{reference}:
  *   get:
  *     summary: Obtener los proveedores disponibles para una transacción
  *     tags: [Payin]
@@ -75,7 +75,7 @@ router.get('/providers/:reference', payinController.getProvidersForReference);
 
 /**
  * @swagger
- * /payin/choose-provider:
+ * api/payin/choose-provider:
  *   post:
  *     summary: Seleccionar un proveedor y enviar la referencia de pago
  *     tags: [Payin]
@@ -115,7 +115,7 @@ router.post('/choose-provider', payinController.sendReferenceToProvider);
 
 /**
  * @swagger
- * /payin/webhook/payment-notification:
+ * api/payin/webhook/payment-notification:
  *   post:
  *     summary: Webhook para notificar que un pago fue realizado exitosamente
  *     tags: [Payin]
@@ -141,7 +141,7 @@ router.post('/webhook/payment-notification', payinController.paymentNotification
 
 /**
  * @swagger
- * /payin/transaction/{reference}:
+ * api/payin/transaction/{reference}:
  *   get:
  *     summary: Obtener los detalles de una transacción por referencia
  *     tags: [Payin]
