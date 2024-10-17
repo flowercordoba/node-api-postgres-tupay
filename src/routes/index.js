@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+// Importar las rutas
 const userRoutes = require('./userRoutes');
 const authRoutes = require('./authRoutes');
 const userDataRoutes = require('./userDataRoutes');
@@ -19,21 +20,32 @@ const swaggerRoutes = require('./swaggerRoutes');
 const sessionAuth = require('../middlewares/sessionAuth');
 const apiKeyAuth = require('../middlewares/apiKeyAuth');
 
-// Conectar las rutas que requieren token de sesión
-router.use('/users', sessionAuth, userRoutes);
-router.use('/auth', sessionAuth, authRoutes);
-router.use(sessionAuth, userDataRoutes); // Rutas para obtener la información del usuario
-router.use(sessionAuth, apiKeyRoutes);
-router.use(sessionAuth, dailyLogRoutes);
-router.use(sessionAuth, globalUserTransactionRoutes);
-router.use(sessionAuth, notificationRoutes);
-router.use(sessionAuth, pendingReferenceRoutes);
-router.use(sessionAuth, providerRoutes);
-router.use(sessionAuth, transactionRoutes);
-router.use(sessionAuth, fundifyRoutes);
+// Rutas que no requieren autenticación
+router.use('/auth', authRoutes);
 
-// Conectar las rutas que requieren API Key
+// Rutas que requieren token de sesión
+const sessionAuthenticatedRoutes = [
+    { path: '/users', route: userRoutes },
+    { path: '/userData', route: userDataRoutes },
+    { path: '/api-keys', route: apiKeyRoutes },
+    { path: '/daily-logs', route: dailyLogRoutes },
+    { path: '/global-user-transactions', route: globalUserTransactionRoutes },
+    { path: '/notifications', route: notificationRoutes },
+    { path: '/pending-references', route: pendingReferenceRoutes },
+    { path: '/providers', route: providerRoutes },
+    { path: '/transactions', route: transactionRoutes },
+];
+
+// Aplicar el middleware a todas las rutas que requieren autenticación
+sessionAuthenticatedRoutes.forEach(({ path, route }) => {
+    router.use(path, sessionAuth, route);
+});
+
+// Rutas que requieren API Key
+router.use('/fundify', fundifyRoutes);
 router.use('/payin', apiKeyAuth, payinRoutes);
-router.use('/swagger', apiKeyAuth, swaggerRoutes);
+
+// Ruta para Swagger
+router.use('/swagger', swaggerRoutes);
 
 module.exports = router;

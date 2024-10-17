@@ -21,7 +21,7 @@ const fundifyController = require('../controllers/fundifyController');
  *         default: 0
  *       description: El desplazamiento para la paginación (número de elementos a omitir)
  *
- * /fundify/transactions/completed:
+ * /api/fundify/transactions/completed:
  *   get:
  *     summary: Obtener todas las transacciones completadas con paginación
  *     tags: [Fundify]
@@ -44,7 +44,7 @@ router.get('/transactions/completed', fundifyController.getCompletedTransactions
 
 /**
  * @swagger
- * /fundify/transactions/pending:
+ * /api/fundify/transactions/pending:
  *   get:
  *     summary: Obtener todas las transacciones pendientes con paginación
  *     tags: [Fundify]
@@ -67,7 +67,7 @@ router.get('/transactions/pending', fundifyController.getPendingTransactions);
 
 /**
  * @swagger
- * /fundify/transactions/last-hour:
+ * /api/fundify/transactions/last-hour:
  *   get:
  *     summary: Obtener todas las transacciones de la última hora con paginación
  *     tags: [Fundify]
@@ -90,7 +90,7 @@ router.get('/transactions/last-hour', fundifyController.getTransactionsLastHour)
 
 /**
  * @swagger
- * /fundify/transactions/last-24-hours:
+ * /api/fundify/transactions/last-24-hours:
  *   get:
  *     summary: Obtener todas las transacciones de las últimas 24 horas con paginación
  *     tags: [Fundify]
@@ -113,7 +113,7 @@ router.get('/transactions/last-24-hours', fundifyController.getTransactionsLast2
 
 /**
  * @swagger
- * /fundify/transactions/last-week:
+ * /api/fundify/transactions/last-week:
  *   get:
  *     summary: Obtener todas las transacciones de la última semana con paginación
  *     tags: [Fundify]
@@ -136,7 +136,7 @@ router.get('/transactions/last-week', fundifyController.getTransactionsLastWeek)
 
 /**
  * @swagger
- * /fundify/transactions/{reference}:
+ * /api/fundify/transactions/{reference}:
  *   get:
  *     summary: Obtener una transacción por referencia
  *     tags: [Fundify]
@@ -163,7 +163,7 @@ router.get('/transactions/:reference', fundifyController.getTransactionByReferen
 
 /**
  * @swagger
- * /fundify/webhook/transaction-paid:
+ * /api/fundify/webhook/transaction-paid:
  *   post:
  *     summary: Webhook para notificar que una transacción fue pagada
  *     tags: [Fundify]
