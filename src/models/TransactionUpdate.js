@@ -1,6 +1,11 @@
 // models/TransactionUpdate.js
 module.exports = (sequelize, DataTypes) => {
     const TransactionUpdate = sequelize.define('TransactionUpdate', {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        },
         new_status: {
             type: DataTypes.ENUM('approved', 'rejected'),
             allowNull: false,

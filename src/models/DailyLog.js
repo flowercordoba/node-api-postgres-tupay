@@ -1,6 +1,11 @@
 // models/DailyLog.js
 module.exports = (sequelize, DataTypes) => {
     const DailyLog = sequelize.define('DailyLog', {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
       log_date: {
         type: DataTypes.DATE,
         allowNull: false,

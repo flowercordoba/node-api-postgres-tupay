@@ -1,5 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
     const PendingReference = sequelize.define('PendingReference', {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        },
         status: {
             type: DataTypes.ENUM('pending', 'processed'),
             allowNull: false,

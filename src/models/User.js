@@ -2,6 +2,11 @@ const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
+    user_id: {  // Mantén 'user_id' como clave primaria
+      type: DataTypes.INTEGER,
+      autoIncrement: true, // Es autoincrementable
+      primaryKey: true,    // Definido como clave primaria
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -49,8 +54,6 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Transaction, { as: 'transactions', foreignKey: 'user_id' });
     User.hasMany(models.PendingReference, { as: 'pendingReferences', foreignKey: 'user_id' });
     User.hasMany(models.GlobalUserTransaction, { as: 'globalTransactions', foreignKey: 'user_id' });
-
-    // Otras asociaciones que desees agregar
   };
 
   return User;

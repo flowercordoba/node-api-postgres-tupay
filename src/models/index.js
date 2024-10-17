@@ -41,10 +41,22 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+// Sincronizar los modelos con la base de datos, actualizando las columnas pero sin eliminar datos
+sequelize.sync({
+  alter: {
+    drop: false // No eliminar columnas que tienen dependencias
+  }
+})
+  .then(() => {
+    console.log('Modelos sincronizados correctamente.');
+  })
+  .catch((error) => {
+    console.error('Error sincronizando los modelos:', error);
+  });
+
+
 // Exportar sequelize y los modelos
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 module.exports = db;
-
-

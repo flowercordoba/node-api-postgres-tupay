@@ -4,13 +4,15 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/app.js",
-    "start:dev": "nodemon src/app.js"
+    "start:dev": "nodemon src/app.js",
+    "seeder": "npx sequelize-cli db:seed:all --config src/config/config.json --seeders-path src/seeders"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@faker-js/faker": "^9.0.3",
     "bcryptjs": "^2.4.3",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.5",

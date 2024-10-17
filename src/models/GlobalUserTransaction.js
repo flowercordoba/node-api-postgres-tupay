@@ -1,5 +1,11 @@
+// models/GlobalUserTransaction.js
 module.exports = (sequelize, DataTypes) => {
     const GlobalUserTransaction = sequelize.define('GlobalUserTransaction', {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+          },
         transaction_type: {
             type: DataTypes.ENUM('payin', 'payout'),
             allowNull: false,

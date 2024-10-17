@@ -1,5 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
     const Provider = sequelize.define('Provider', {
+        provider_id: {  // Asegúrate de que el campo 'provider_id' esté definido
+            type: DataTypes.INTEGER,
+            autoIncrement: true, // Si es autoincrementable
+            primaryKey: true, // Defínelo como clave primaria
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -24,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
 
     Provider.associate = (models) => {
         Provider.hasMany(models.Transaction, { as: 'transactions', foreignKey: 'provider_id' });
+        Provider.hasMany(models.ApiKey, { as: 'apiKeys', foreignKey: 'provider_id' });
+        Provider.hasMany(models.PendingReference, { as: 'pendingReferences', foreignKey: 'provider_id' });
+        Provider.hasMany(models.GlobalUserTransaction, { as: 'globalTransactions', foreignKey: 'provider_id' });
     };
 
     return Provider;
