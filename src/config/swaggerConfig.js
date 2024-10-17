@@ -1,22 +1,22 @@
 const swaggerJsdoc = require('swagger-jsdoc');
 
-const swaggerOptions = {
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'API de Usuarios',
-            version: '1.0.0',
-            description: 'API para gestionar usuarios',
-        },
-        servers: [
-            {
-                url: 'http://localhost:3000',
-            },
-        ],
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'API TUPAY Documentation',
+      version: '1.0.0',
+      description: 'Documentación de la API',
     },
-    apis: ['./routes/*.js'], // Ruta a tus archivos de rutas
+    servers: [
+      {
+        url: 'http://localhost:3000', // URL base del servidor
+        description: 'Servidor local'
+      }
+    ]
+  },
+  apis: ['./src/routes/*.js'], // Ruta a los archivos de rutas donde están documentadas las operaciones
 };
 
-// Exportar la configuración para ser usada en otro archivo
-const swaggerDocs = swaggerJsdoc(swaggerOptions);
+const swaggerDocs = swaggerJsdoc(options);
 module.exports = swaggerDocs;
