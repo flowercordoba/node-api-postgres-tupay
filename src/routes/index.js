@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const userRoutes = require('./userRoutes');
+const authRoutes = require('./authRoutes');
+const userDataRoutes = require('./userDataRoutes');
 const apiKeyRoutes = require('./apiKeyRoutes');
 const dailyLogRoutes = require('./dailyLogRoutes');
 const globalUserTransactionRoutes = require('./globalUserTransactionRoutes');
@@ -13,6 +15,10 @@ const swaggerRoutes = require('./swaggerRoutes');
 
 // Conectar las rutas de usuario
 router.use('/users', userRoutes);
+router.use('/auth', authRoutes);
+router.use(userDataRoutes); // Rutas para obtener la información del usuario
+
+
 
 // Conectar las rutas de API Keys
 router.use(apiKeyRoutes);
