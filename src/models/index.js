@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const Sequelize = require('sequelize');
+const { Sequelize } = require('sequelize'); // Cambia esto a desestructuración para ser más claro
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 
@@ -10,12 +10,22 @@ const env = process.env.NODE_ENV || 'development';
 const config = require(path.join(__dirname, '/../config/config.json'))[env];
 const db = {};
 
+// Determina si el logging debe estar habilitado
+const LOGGING_ENABLED = process.env.LOGGING_ENABLED === 'true'; // Cambia esto para activar/desactivar logs
+console.log('LOGGING_ENABLED:', LOGGING_ENABLED);
+
 // Crear la instancia de Sequelize
 let sequelize;
 if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+  sequelize = new Sequelize(process.env[config.use_env_variable], {
+    ...config, // Usa la configuración existente
+    logging: LOGGING_ENABLED ? (msg) => console.log(msg) : false, // Activa el logging si está habilitado
+  });
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
+  sequelize = new Sequelize(config.database, config.username, config.password, {
+    ...config, // Usa la configuración existente
+    logging: LOGGING_ENABLED ? (msg) => console.log(msg) : false, // Activa el logging si está habilitado
+  });
 }
 
 // Leer todos los modelos y agregarlos al objeto "db"
@@ -53,7 +63,6 @@ sequelize.sync({
   .catch((error) => {
     console.error('Error sincronizando los modelos:', error);
   });
-
 
 // Exportar sequelize y los modelos
 db.sequelize = sequelize;
