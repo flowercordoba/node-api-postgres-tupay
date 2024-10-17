@@ -1,0 +1,2513 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API TUPAY Documentation",
+    "version": "1.0.0",
+    "description": "Documentación de la API"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor local"
+    }
+  ],
+  "paths": {
+    "/api/api-keys": {
+      "post": {
+        "summary": "Crear un nuevo API Key",
+        "tags": [
+          "ApiKey"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiKey"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "API Key creado con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiKey"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "get": {
+        "summary": "Obtener la lista de API Keys",
+        "tags": [
+          "ApiKey"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de API Keys",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApiKey"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/api-keys/{id}": {
+      "get": {
+        "summary": "Obtener un API Key por ID",
+        "tags": [
+          "ApiKey"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID del API Key"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API Key encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiKey"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "API Key no encontrado"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar un API Key por ID",
+        "tags": [
+          "ApiKey"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID del API Key"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiKey"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "API Key actualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiKey"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "API Key no encontrado"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar un API Key por ID",
+        "tags": [
+          "ApiKey"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID del API Key"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "API Key eliminado con éxito"
+          },
+          "404": {
+            "description": "API Key no encontrado"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "summary": "Registrar un nuevo usuario",
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuario registrado con éxito"
+          },
+          "400": {
+            "description": "El correo ya está registrado"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "summary": "Iniciar sesión",
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Inicio de sesión exitoso"
+          },
+          "400": {
+            "description": "Credenciales incorrectas"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/auth/profile": {
+      "get": {
+        "summary": "Obtener el perfil del usuario autenticado",
+        "tags": [
+          "Auth"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Perfil del usuario"
+          },
+          "401": {
+            "description": "No autorizado"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/daily-logs": {
+      "post": {
+        "summary": "Crear un nuevo Daily Log",
+        "tags": [
+          "DailyLog"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DailyLog"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Daily Log creado con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DailyLog"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "get": {
+        "summary": "Obtener la lista de Daily Logs",
+        "tags": [
+          "DailyLog"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de Daily Logs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DailyLog"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/daily-logs/{id}": {
+      "get": {
+        "summary": "Obtener un Daily Log por ID",
+        "tags": [
+          "DailyLog"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID del Daily Log"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Daily Log encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DailyLog"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Daily Log no encontrado"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar un Daily Log por ID",
+        "tags": [
+          "DailyLog"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID del Daily Log"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DailyLog"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Daily Log actualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DailyLog"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Daily Log no encontrado"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar un Daily Log por ID",
+        "tags": [
+          "DailyLog"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID del Daily Log"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Daily Log eliminado con éxito"
+          },
+          "404": {
+            "description": "Daily Log no encontrado"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/fundify/transactions/completed": {
+      "get": {
+        "summary": "Obtener todas las transacciones completadas con paginación",
+        "tags": [
+          "Fundify"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limitParam"
+          },
+          {
+            "$ref": "#/components/parameters/offsetParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de transacciones completadas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Transaction"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/fundify/transactions/pending": {
+      "get": {
+        "summary": "Obtener todas las transacciones pendientes con paginación",
+        "tags": [
+          "Fundify"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limitParam"
+          },
+          {
+            "$ref": "#/components/parameters/offsetParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de transacciones pendientes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Transaction"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/fundify/transactions/last-hour": {
+      "get": {
+        "summary": "Obtener todas las transacciones de la última hora con paginación",
+        "tags": [
+          "Fundify"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limitParam"
+          },
+          {
+            "$ref": "#/components/parameters/offsetParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de transacciones de la última hora",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Transaction"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/fundify/transactions/last-24-hours": {
+      "get": {
+        "summary": "Obtener todas las transacciones de las últimas 24 horas con paginación",
+        "tags": [
+          "Fundify"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limitParam"
+          },
+          {
+            "$ref": "#/components/parameters/offsetParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de transacciones de las últimas 24 horas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Transaction"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/fundify/transactions/last-week": {
+      "get": {
+        "summary": "Obtener todas las transacciones de la última semana con paginación",
+        "tags": [
+          "Fundify"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limitParam"
+          },
+          {
+            "$ref": "#/components/parameters/offsetParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de transacciones de la última semana",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Transaction"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/fundify/transactions/{reference}": {
+      "get": {
+        "summary": "Obtener una transacción por referencia",
+        "tags": [
+          "Fundify"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "reference",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Referencia única de la transacción"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transacción obtenida exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transacción no encontrada"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/fundify/webhook/transaction-paid": {
+      "post": {
+        "summary": "Webhook para notificar que una transacción fue pagada",
+        "tags": [
+          "Fundify"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reference": {
+                    "type": "string",
+                    "description": "La referencia de la transacción pagada"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transacción actualizada correctamente"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/api/global-user-transactions": {
+      "post": {
+        "summary": "Crear una nueva Global User Transaction",
+        "tags": [
+          "GlobalUserTransaction"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GlobalUserTransaction"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Global User Transaction creada con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalUserTransaction"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "get": {
+        "summary": "Obtener la lista de Global User Transactions",
+        "tags": [
+          "GlobalUserTransaction"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de Global User Transactions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GlobalUserTransaction"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/global-user-transactions/{id}": {
+      "get": {
+        "summary": "Obtener una Global User Transaction por ID",
+        "tags": [
+          "GlobalUserTransaction"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la Global User Transaction"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Global User Transaction encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalUserTransaction"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Global User Transaction no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar una Global User Transaction por ID",
+        "tags": [
+          "GlobalUserTransaction"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la Global User Transaction"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GlobalUserTransaction"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Global User Transaction actualizada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalUserTransaction"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Global User Transaction no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una Global User Transaction por ID",
+        "tags": [
+          "GlobalUserTransaction"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la Global User Transaction"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Global User Transaction eliminada con éxito"
+          },
+          "404": {
+            "description": "Global User Transaction no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/notifications": {
+      "post": {
+        "summary": "Crear una nueva Notificación",
+        "tags": [
+          "Notification"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Notification"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Notificación creada con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Notification"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "get": {
+        "summary": "Obtener la lista de Notificaciones",
+        "tags": [
+          "Notification"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de Notificaciones",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Notification"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/notifications/{id}": {
+      "get": {
+        "summary": "Obtener una Notificación por ID",
+        "tags": [
+          "Notification"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la Notificación"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notificación encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Notification"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Notificación no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar una Notificación por ID",
+        "tags": [
+          "Notification"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la Notificación"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Notification"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Notificación actualizada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Notification"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Notificación no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una Notificación por ID",
+        "tags": [
+          "Notification"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la Notificación"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Notificación eliminada con éxito"
+          },
+          "404": {
+            "description": "Notificación no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/payin/providers/{reference}": {
+      "get": {
+        "summary": "Obtener los proveedores disponibles para una transacción",
+        "tags": [
+          "Payin"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "reference",
+            "schema": {
+              "type": "string",
+              "description": "La referencia única de la transacción"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Proveedores disponibles obtenidos exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Provider"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transacción no encontrada"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/payin/choose-provider": {
+      "post": {
+        "summary": "Seleccionar un proveedor y enviar la referencia de pago",
+        "tags": [
+          "Payin"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reference": {
+                    "type": "string",
+                    "description": "Referencia única de la transacción"
+                  },
+                  "providerId": {
+                    "type": "integer",
+                    "description": "ID del proveedor seleccionado"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proveedor seleccionado correctamente y redirigido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Mensaje de confirmación"
+                    },
+                    "redirectUrl": {
+                      "type": "string",
+                      "description": "URL de pago a la que se redirige al usuario"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transacción o proveedor no encontrado"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/payin/webhook/payment-notification": {
+      "post": {
+        "summary": "Webhook para notificar que un pago fue realizado exitosamente",
+        "tags": [
+          "Payin"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reference": {
+                    "type": "string",
+                    "description": "Referencia única de la transacción"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Pago recibido y transacción actualizada"
+          },
+          "404": {
+            "description": "Transacción no encontrada"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/payin/transaction/{reference}": {
+      "get": {
+        "summary": "Obtener los detalles de una transacción por referencia",
+        "tags": [
+          "Payin"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "reference",
+            "schema": {
+              "type": "string",
+              "description": "Referencia única de la transacción"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalles de la transacción obtenidos exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transacción no encontrada"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/api/pending-references": {
+      "post": {
+        "summary": "Crear una nueva Pending Reference",
+        "tags": [
+          "PendingReference"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PendingReference"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Pending Reference creada con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PendingReference"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "get": {
+        "summary": "Obtener la lista de Pending References",
+        "tags": [
+          "PendingReference"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de Pending References",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PendingReference"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/pending-references/{id}": {
+      "get": {
+        "summary": "Obtener una Pending Reference por ID",
+        "tags": [
+          "PendingReference"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la Pending Reference"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pending Reference encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PendingReference"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pending Reference no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar una Pending Reference por ID",
+        "tags": [
+          "PendingReference"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la Pending Reference"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PendingReference"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Pending Reference actualizada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PendingReference"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pending Reference no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una Pending Reference por ID",
+        "tags": [
+          "PendingReference"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la Pending Reference"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Pending Reference eliminada con éxito"
+          },
+          "404": {
+            "description": "Pending Reference no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/providers": {
+      "post": {
+        "summary": "Crear un nuevo proveedor",
+        "tags": [
+          "Provider"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Provider"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Proveedor creado con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Provider"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "get": {
+        "summary": "Obtener la lista de proveedores",
+        "tags": [
+          "Provider"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de proveedores",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Provider"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/providers/{id}": {
+      "get": {
+        "summary": "Obtener un proveedor por ID",
+        "tags": [
+          "Provider"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID del proveedor"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Proveedor encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Provider"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Proveedor no encontrado"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar un proveedor por ID",
+        "tags": [
+          "Provider"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID del proveedor"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Provider"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proveedor actualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Provider"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Proveedor no encontrado"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar un proveedor por ID",
+        "tags": [
+          "Provider"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID del proveedor"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Proveedor eliminado con éxito"
+          },
+          "404": {
+            "description": "Proveedor no encontrado"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/transactions": {
+      "post": {
+        "summary": "Crear una nueva Transacción",
+        "tags": [
+          "Transaction"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Transaction"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Transacción creada con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "get": {
+        "summary": "Obtener la lista de Transacciones",
+        "tags": [
+          "Transaction"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de transacciones",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Transaction"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/transactions/{id}": {
+      "get": {
+        "summary": "Obtener una transacción por ID",
+        "tags": [
+          "Transaction"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la transacción"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Transacción encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transacción no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar una transacción por ID",
+        "tags": [
+          "Transaction"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la transacción"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Transaction"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transacción actualizada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transacción no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una transacción por ID",
+        "tags": [
+          "Transaction"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la transacción"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Transacción eliminada con éxito"
+          },
+          "404": {
+            "description": "Transacción no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/transaction-updates": {
+      "post": {
+        "summary": "Crear una nueva actualización de estado de la transacción",
+        "tags": [
+          "TransactionUpdate"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Estado de actualización de transacción creado con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionUpdate"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "get": {
+        "summary": "Obtener la lista de actualizaciones de transacciones",
+        "tags": [
+          "TransactionUpdate"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de actualizaciones de transacciones",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TransactionUpdate"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/transaction-updates/{id}": {
+      "get": {
+        "summary": "Obtener una actualización de transacción por ID",
+        "tags": [
+          "TransactionUpdate"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la actualización de transacción"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Actualización de transacción encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionUpdate"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Actualización de transacción no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar una actualización de transacción por ID",
+        "tags": [
+          "TransactionUpdate"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la actualización de transacción"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Actualización de transacción actualizada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionUpdate"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Actualización de transacción no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una actualización de transacción por ID",
+        "tags": [
+          "TransactionUpdate"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la actualización de transacción"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Actualización de transacción eliminada con éxito"
+          },
+          "404": {
+            "description": "Actualización de transacción no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/user/{id}": {
+      "get": {
+        "summary": "Obtener la información básica del usuario",
+        "tags": [
+          "User Data"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID del usuario"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Datos del usuario obtenidos con éxito"
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/user/{id}/transactions": {
+      "get": {
+        "summary": "Obtener todas las transacciones del usuario",
+        "tags": [
+          "User Data"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID del usuario"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de transacciones obtenida con éxito"
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/user/{id}/pending-references": {
+      "get": {
+        "summary": "Obtener todas las referencias pendientes del usuario",
+        "tags": [
+          "User Data"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID del usuario"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de referencias pendientes obtenida con éxito"
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/user/{id}/global-transactions": {
+      "get": {
+        "summary": "Obtener todas las transacciones globales del usuario",
+        "tags": [
+          "User Data"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID del usuario"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de transacciones globales obtenida con éxito"
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "post": {
+        "summary": "Crear un nuevo usuario",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuario creado con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "get": {
+        "summary": "Obtener la lista de usuarios",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de usuarios",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/users/{id}": {
+      "get": {
+        "summary": "Obtener un usuario por ID",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID del usuario"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar un usuario por ID",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID del usuario"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usuario actualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar un usuario por ID",
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID del usuario"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Usuario eliminado con éxito"
+          },
+          "404": {
+            "description": "Usuario no encontrado"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiKey": {
+        "type": "object",
+        "required": [
+          "api_key",
+          "provider_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID del API Key"
+          },
+          "api_key": {
+            "type": "string",
+            "description": "API Key único"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Estado de activación del API Key"
+          },
+          "provider_id": {
+            "type": "integer",
+            "description": "ID del proveedor asociado"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Fecha de creación"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Fecha de última actualización"
+          }
+        }
+      },
+      "DailyLog": {
+        "type": "object",
+        "required": [
+          "log_date",
+          "transaction_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID del Daily Log"
+          },
+          "log_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Fecha del registro"
+          },
+          "details": {
+            "type": "string",
+            "description": "Detalles adicionales del registro"
+          },
+          "transaction_id": {
+            "type": "integer",
+            "description": "ID de la transacción relacionada"
+          }
+        }
+      },
+      "GlobalUserTransaction": {
+        "type": "object",
+        "required": [
+          "transaction_type",
+          "amount",
+          "status",
+          "user_id",
+          "transaction_id",
+          "provider_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID de la Global User Transaction"
+          },
+          "transaction_type": {
+            "type": "string",
+            "enum": [
+              "payin",
+              "payout"
+            ],
+            "description": "Tipo de transacción"
+          },
+          "amount": {
+            "type": "number",
+            "format": "decimal",
+            "description": "Monto de la transacción"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "approved",
+              "rejected"
+            ],
+            "description": "Estado de la transacción"
+          },
+          "executed_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Fecha y hora de ejecución de la transacción"
+          },
+          "user_id": {
+            "type": "integer",
+            "description": "ID del usuario relacionado"
+          },
+          "transaction_id": {
+            "type": "integer",
+            "description": "ID de la transacción"
+          },
+          "provider_id": {
+            "type": "integer",
+            "description": "ID del proveedor relacionado"
+          }
+        }
+      },
+      "Notification": {
+        "type": "object",
+        "required": [
+          "message",
+          "user_id",
+          "transaction_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID de la Notificación"
+          },
+          "message": {
+            "type": "string",
+            "description": "Mensaje de la notificación"
+          },
+          "notification_date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Fecha de la notificación"
+          },
+          "user_id": {
+            "type": "integer",
+            "description": "ID del usuario relacionado"
+          },
+          "transaction_id": {
+            "type": "integer",
+            "description": "ID de la transacción relacionada"
+          }
+        }
+      },
+      "Provider": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID del proveedor"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nombre del proveedor"
+          },
+          "paymentUrl": {
+            "type": "string",
+            "description": "URL de pago del proveedor"
+          },
+          "contact_email": {
+            "type": "string",
+            "description": "Email de contacto del proveedor"
+          },
+          "api_key": {
+            "type": "string",
+            "description": "Clave API única del proveedor"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Estado del proveedor"
+          }
+        },
+        "required": [
+          "name",
+          "api_key"
+        ]
+      },
+      "Transaction": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID de la Transacción"
+          },
+          "user_id": {
+            "type": "integer",
+            "description": "ID del usuario relacionado"
+          },
+          "reference": {
+            "type": "string",
+            "description": "Referencia única de la transacción"
+          },
+          "amount": {
+            "type": "number",
+            "format": "decimal",
+            "description": "Monto de la transacción"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Moneda utilizada en la transacción"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "approved",
+              "rejected"
+            ],
+            "description": "Estado de la transacción"
+          },
+          "transaction_type": {
+            "type": "string",
+            "enum": [
+              "payin",
+              "payout"
+            ],
+            "description": "Tipo de transacción"
+          },
+          "transaction_date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Fecha y hora de la transacción"
+          },
+          "provider_id": {
+            "type": "integer",
+            "description": "ID del proveedor relacionado"
+          }
+        },
+        "required": [
+          "transaction_type",
+          "amount",
+          "status",
+          "user_id",
+          "provider_id"
+        ]
+      },
+      "PendingReference": {
+        "type": "object",
+        "required": [
+          "status",
+          "user_id",
+          "provider_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID de la Pending Reference"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "processed"
+            ],
+            "description": "Estado de la referencia"
+          },
+          "reference_date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Fecha de referencia"
+          },
+          "user_id": {
+            "type": "integer",
+            "description": "ID del usuario relacionado"
+          },
+          "provider_id": {
+            "type": "integer",
+            "description": "ID del proveedor relacionado"
+          }
+        }
+      },
+      "TransactionUpdate": {
+        "type": "object",
+        "required": [
+          "new_status",
+          "transaction_id"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID del estado de actualización de la transacción"
+          },
+          "new_status": {
+            "type": "string",
+            "enum": [
+              "approved",
+              "rejected"
+            ],
+            "description": "Nuevo estado de la transacción"
+          },
+          "update_date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Fecha y hora de la actualización"
+          },
+          "transaction_id": {
+            "type": "integer",
+            "description": "ID de la transacción relacionada"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "required": [
+          "name",
+          "email"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID del usuario"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nombre del usuario"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email del usuario"
+          },
+          "onboarding_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Fecha de registro del usuario"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Fecha de creación del registro"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Fecha de la última actualización del registro"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "limitParam": {
+        "in": "query",
+        "name": "limit",
+        "schema": {
+          "type": "integer",
+          "default": 20
+        },
+        "description": "El número máximo de resultados por página"
+      },
+      "offsetParam": {
+        "in": "query",
+        "name": "offset",
+        "schema": {
+          "type": "integer",
+          "default": 0
+        },
+        "description": "El desplazamiento para la paginación (número de elementos a omitir)"
+      }
+    }
+  },
+  "tags": []
+}

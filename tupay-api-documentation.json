@@ -1,980 +1,716 @@
 {
     "info": {
-        "_postman_id": "unique-id",
-        "name": "API Documentation - Tupay",
-        "description": "Documentación de la API para la plataforma Tupay.",
-        "version": "1.0.0"
+      "_postman_id": "unique-id",
+      "name": "API Documentation - Tupay",
+      "description": "Documentación de la API para la plataforma Tupay.",
+      "version": "1.0.0"
     },
     "item": [
-        {
-            "name": "Users",
-            "item": [
-                {
-                    "name": "Crear un nuevo usuario",
-                    "request": {
-                        "method": "POST",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"name\": \"string\",\n    \"email\": \"string\"\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/api/users",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "users"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Obtener la lista de usuarios",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/api/users",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "users"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Obtener un usuario por ID",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/api/users/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "users",
-                                ":id"
-                            ]
-                        },
-                        "description": "Reemplace `:id` con el ID del usuario."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Actualizar un usuario por ID",
-                    "request": {
-                        "method": "PUT",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"name\": \"string\",\n    \"email\": \"string\"\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/api/users/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "users",
-                                ":id"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Eliminar un usuario por ID",
-                    "request": {
-                        "method": "DELETE",
-                        "url": {
-                            "raw": "{{base_url}}/api/users/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "users",
-                                ":id"
-                            ]
-                        }
-                    },
-                    "response": []
-                }
-            ]
-        },
-        {
-            "name": "Auth",
-            "item": [
-                {
-                    "name": "Registrar un nuevo usuario",
-                    "request": {
-                        "method": "POST",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"password\": \"string\"\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/api/auth/register",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "auth",
-                                "register"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Iniciar sesión",
-                    "request": {
-                        "method": "POST",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"email\": \"string\",\n    \"password\": \"string\"\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/api/auth/login",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "auth",
-                                "login"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Obtener perfil del usuario",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/api/auth/profile",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "auth",
-                                "profile"
-                            ]
-                        },
-                        "description": "Requiere autenticación."
-                    },
-                    "response": []
-                }
-            ]
-        },
-        {
-            "name": "Daily Logs",
-            "item": [
-                {
-                    "name": "Crear un nuevo Daily Log",
-                    "request": {
-                        "method": "POST",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"log_date\": \"string\",\n    \"transaction_id\": \"integer\"\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/api/daily-logs",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "daily-logs"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Obtener la lista de Daily Logs",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/api/daily-logs",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "daily-logs"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Obtener un Daily Log por ID",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/api/daily-logs/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "daily-logs",
-                                ":id"
-                            ]
-                        },
-                        "description": "Reemplace `:id` con el ID del Daily Log."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Actualizar un Daily Log por ID",
-                    "request": {
-                        "method": "PUT",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"log_date\": \"string\",\n    \"transaction_id\": \"integer\"\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/api/daily-logs/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "daily-logs",
-                                ":id"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Eliminar un Daily Log por ID",
-                    "request": {
-                        "method": "DELETE",
-                        "url": {
-                            "raw": "{{base_url}}/api/daily-logs/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "daily-logs",
-                                ":id"
-                            ]
-                        }
-                    },
-                    "response": []
-                }
-            ]
-        },
-        {
-            "name": "API Keys",
-            "item": [
-                {
-                    "name": "Crear un nuevo API Key",
-                    "request": {
-                        "method": "POST",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"api_key\": \"string\",\n    \"provider_id\": 1\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/api/api-keys",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "api-keys"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Obtener la lista de API Keys",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/api/api-keys",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "api-keys"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Obtener un API Key por ID",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/api/api-keys/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "api-keys",
-                                ":id"
-                            ]
-                        },
-                        "description": "Reemplace `:id` con el ID del API Key."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Actualizar un API Key por ID",
-                    "request": {
-                        "method": "PUT",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"api_key\": \"string\",\n    \"provider_id\": 1\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/api/api-keys/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "api-keys",
-                                ":id"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Eliminar un API Key por ID",
-                    "request": {
-                        "method": "DELETE",
-                        "url": {
-                            "raw": "{{base_url}}/api/api-keys/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "api-keys",
-                                ":id"
-                            ]
-                        }
-                    },
-                    "response": []
-                }
-            ]
-        },
-        {
-            "name": "Pending References",
-            "item": [
-                {
-                    "name": "Crear una nueva Pending Reference",
-                    "request": {
-                        "method": "POST",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"status\": \"pending\",\n    \"user_id\": 1,\n    \"provider_id\": 1\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/api/pending-references",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "pending-references"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Obtener la lista de Pending References",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/api/pending-references",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "pending-references"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Obtener una Pending Reference por ID",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/api/pending-references/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "pending-references",
-                                ":id"
-                            ]
-                        },
-                        "description": "Reemplace `:id` con el ID de la Pending Reference."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Actualizar una Pending Reference por ID",
-                    "request": {
-                        "method": "PUT",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"status\": \"processed\"\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/api/pending-references/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "pending-references",
-                                ":id"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Eliminar una Pending Reference por ID",
-                    "request": {
-                        "method": "DELETE",
-                        "url": {
-                            "raw": "{{base_url}}/api/pending-references/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "pending-references",
-                                ":id"
-                            ]
-                        }
-                    },
-                    "response": []
-                }
-            ]
-        },
-        {
-            "name": "Transactions",
-            "item": [
-                {
-                    "name": "Crear una nueva Transacción",
-                    "request": {
-                        "method": "POST",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"transaction_type\": \"payin\",\n    \"amount\": 100,\n    \"user_id\": 1,\n    \"provider_id\": 1\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/api/transactions",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "transactions"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Obtener la lista de Transacciones",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/api/transactions",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "transactions"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Obtener una transacción por ID",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/api/transactions/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "transactions",
-                                ":id"
-                            ]
-                        },
-                        "description": "Reemplace `:id` con el ID de la transacción."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Actualizar una transacción por ID",
-                    "request": {
-                        "method": "PUT",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"amount\": 150\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/api/transactions/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "transactions",
-                                ":id"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Eliminar una transacción por ID",
-                    "request": {
-                        "method": "DELETE",
-                        "url": {
-                            "raw": "{{base_url}}/api/transactions/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "transactions",
-                                ":id"
-                            ]
-                        }
-                    },
-                    "response": []
-                }
-            ]
-        },
-        {
-            "name": "Transaction Updates",
-            "item": [
-                {
-                    "name": "Crear una nueva actualización de estado de la transacción",
-                    "request": {
-                        "method": "POST",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"new_status\": \"approved\",\n    \"transaction_id\": 1\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/api/transaction-updates",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "transaction-updates"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Obtener la lista de actualizaciones de transacciones",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/api/transaction-updates",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "transaction-updates"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Obtener una actualización de transacción por ID",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/api/transaction-updates/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "transaction-updates",
-                                ":id"
-                            ]
-                        },
-                        "description": "Reemplace `:id` con el ID de la actualización de la transacción."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Actualizar una actualización de transacción por ID",
-                    "request": {
-                        "method": "PUT",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"new_status\": \"rejected\"\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/api/transaction-updates/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "transaction-updates",
-                                ":id"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Eliminar una actualización de transacción por ID",
-                    "request": {
-                        "method": "DELETE",
-                        "url": {
-                            "raw": "{{base_url}}/api/transaction-updates/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "transaction-updates",
-                                ":id"
-                            ]
-                        }
-                    },
-                    "response": []
-                }
-            ]
-        },
-        {
-            "name": "Notifications",
-            "item": [
-                {
-                    "name": "Crear una nueva Notificación",
-                    "request": {
-                        "method": "POST",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"message\": \"Notificación de ejemplo\",\n    \"user_id\": 1,\n    \"transaction_id\": 1\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/api/notifications",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "notifications"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Obtener la lista de Notificaciones",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/api/notifications",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "notifications"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Obtener una Notificación por ID",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/api/notifications/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "notifications",
-                                ":id"
-                            ]
-                        },
-                        "description": "Reemplace `:id` con el ID de la Notificación."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Actualizar una Notificación por ID",
-                    "request": {
-                        "method": "PUT",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"message\": \"Actualización de la notificación\"\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/api/notifications/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "notifications",
-                                ":id"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Eliminar una Notificación por ID",
-                    "request": {
-                        "method": "DELETE",
-                        "url": {
-                            "raw": "{{base_url}}/api/notifications/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "notifications",
-                                ":id"
-                            ]
-                        }
-                    },
-                    "response": []
-                }
-            ]
-        },
-        {
-            "name": "Payin",
-            "item": [
-                {
-                    "name": "Obtener los proveedores disponibles para una transacción",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/payin/providers/:reference",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "payin",
-                                "providers",
-                                ":reference"
-                            ]
-                        },
-                        "description": "Reemplace `:reference` con la referencia única de la transacción."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Seleccionar un proveedor y enviar la referencia de pago",
-                    "request": {
-                        "method": "POST",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"reference\": \"string\",\n    \"providerId\": 1\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/payin/choose-provider",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "payin",
-                                "choose-provider"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Webhook para notificar que un pago fue realizado exitosamente",
-                    "request": {
-                        "method": "POST",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"reference\": \"string\"\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/payin/webhook/payment-notification",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "payin",
-                                "webhook",
-                                "payment-notification"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Obtener los detalles de una transacción por referencia",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/payin/transaction/:reference",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "payin",
-                                "transaction",
-                                ":reference"
-                            ]
-                        },
-                        "description": "Reemplace `:reference` con la referencia única de la transacción."
-                    },
-                    "response": []
-                }
-            ]
-        },
-        {
-            "name": "Global User Transactions",
-            "item": [
-                {
-                    "name": "Crear una nueva Global User Transaction",
-                    "request": {
-                        "method": "POST",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"transaction_type\": \"payin\",\n    \"amount\": 100,\n    \"status\": \"pending\",\n    \"user_id\": 1,\n    \"transaction_id\": 1,\n    \"provider_id\": 1\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/api/global-user-transactions",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "global-user-transactions"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Obtener la lista de Global User Transactions",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/api/global-user-transactions",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "global-user-transactions"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Obtener una Global User Transaction por ID",
-                    "request": {
-                        "method": "GET",
-                        "url": {
-                            "raw": "{{base_url}}/api/global-user-transactions/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "global-user-transactions",
-                                ":id"
-                            ]
-                        },
-                        "description": "Reemplace `:id` con el ID de la Global User Transaction."
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Actualizar una Global User Transaction por ID",
-                    "request": {
-                        "method": "PUT",
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\n    \"amount\": 200\n}"
-                        },
-                        "url": {
-                            "raw": "{{base_url}}/api/global-user-transactions/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "global-user-transactions",
-                                ":id"
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Eliminar una Global User Transaction por ID",
-                    "request": {
-                        "method": "DELETE",
-                        "url": {
-                            "raw": "{{base_url}}/api/global-user-transactions/:id",
-                            "host": [
-                                "{{base_url}}"
-                            ],
-                            "path": [
-                                "api",
-                                "global-user-transactions",
-                                ":id"
-                            ]
-                        }
-                    },
-                    "response": []
-                }
-            ]
-        }
+      {
+        "name": "Users",
+        "item": [
+          {
+            "name": "Crear un nuevo usuario",
+            "request": {
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"name\": \"string\",\n    \"email\": \"string\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/api/users",
+                "host": ["{{base_url}}"],
+                "path": ["api", "users"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener la lista de usuarios",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/api/users",
+                "host": ["{{base_url}}"],
+                "path": ["api", "users"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener un usuario por ID",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/api/users/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "users", ":id"]
+              },
+              "description": "Reemplace `:id` con el ID del usuario."
+            },
+            "response": []
+          },
+          {
+            "name": "Actualizar un usuario por ID",
+            "request": {
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"name\": \"string\",\n    \"email\": \"string\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/api/users/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "users", ":id"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Eliminar un usuario por ID",
+            "request": {
+              "method": "DELETE",
+              "url": {
+                "raw": "{{base_url}}/api/users/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "users", ":id"]
+              }
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "Auth",
+        "item": [
+          {
+            "name": "Registrar un nuevo usuario",
+            "request": {
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"name\": \"string\",\n    \"email\": \"string\",\n    \"password\": \"string\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/api/auth/register",
+                "host": ["{{base_url}}"],
+                "path": ["api", "auth", "register"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Iniciar sesión",
+            "request": {
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"email\": \"string\",\n    \"password\": \"string\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/api/auth/login",
+                "host": ["{{base_url}}"],
+                "path": ["api", "auth", "login"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener perfil del usuario",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/api/auth/profile",
+                "host": ["{{base_url}}"],
+                "path": ["api", "auth", "profile"]
+              },
+              "description": "Requiere autenticación."
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "Daily Logs",
+        "item": [
+          {
+            "name": "Crear un nuevo Daily Log",
+            "request": {
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"log_date\": \"string\",\n    \"transaction_id\": \"integer\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/api/daily-logs",
+                "host": ["{{base_url}}"],
+                "path": ["api", "daily-logs"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener la lista de Daily Logs",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/api/daily-logs",
+                "host": ["{{base_url}}"],
+                "path": ["api", "daily-logs"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener un Daily Log por ID",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/api/daily-logs/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "daily-logs", ":id"]
+              },
+              "description": "Reemplace `:id` con el ID del Daily Log."
+            },
+            "response": []
+          },
+          {
+            "name": "Actualizar un Daily Log por ID",
+            "request": {
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"log_date\": \"string\",\n    \"transaction_id\": \"integer\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/api/daily-logs/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "daily-logs", ":id"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Eliminar un Daily Log por ID",
+            "request": {
+              "method": "DELETE",
+              "url": {
+                "raw": "{{base_url}}/api/daily-logs/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "daily-logs", ":id"]
+              }
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "API Keys",
+        "item": [
+          {
+            "name": "Crear un nuevo API Key",
+            "request": {
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"api_key\": \"string\",\n    \"provider_id\": 1\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/api/api-keys",
+                "host": ["{{base_url}}"],
+                "path": ["api", "api-keys"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener la lista de API Keys",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/api/api-keys",
+                "host": ["{{base_url}}"],
+                "path": ["api", "api-keys"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener un API Key por ID",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/api/api-keys/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "api-keys", ":id"]
+              },
+              "description": "Reemplace `:id` con el ID del API Key."
+            },
+            "response": []
+          },
+          {
+            "name": "Actualizar un API Key por ID",
+            "request": {
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"api_key\": \"string\",\n    \"provider_id\": 1\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/api/api-keys/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "api-keys", ":id"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Eliminar un API Key por ID",
+            "request": {
+              "method": "DELETE",
+              "url": {
+                "raw": "{{base_url}}/api/api-keys/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "api-keys", ":id"]
+              }
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "Pending References",
+        "item": [
+          {
+            "name": "Crear una nueva Pending Reference",
+            "request": {
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"status\": \"pending\",\n    \"user_id\": 1,\n    \"provider_id\": 1\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/api/pending-references",
+                "host": ["{{base_url}}"],
+                "path": ["api", "pending-references"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener la lista de Pending References",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/api/pending-references",
+                "host": ["{{base_url}}"],
+                "path": ["api", "pending-references"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener una Pending Reference por ID",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/api/pending-references/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "pending-references", ":id"]
+              },
+              "description": "Reemplace `:id` con el ID de la Pending Reference."
+            },
+            "response": []
+          },
+          {
+            "name": "Actualizar una Pending Reference por ID",
+            "request": {
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"status\": \"processed\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/api/pending-references/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "pending-references", ":id"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Eliminar una Pending Reference por ID",
+            "request": {
+              "method": "DELETE",
+              "url": {
+                "raw": "{{base_url}}/api/pending-references/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "pending-references", ":id"]
+              }
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "Transactions",
+        "item": [
+          {
+            "name": "Crear una nueva Transacción",
+            "request": {
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"transaction_type\": \"payin\",\n    \"amount\": 100,\n    \"user_id\": 1,\n    \"provider_id\": 1\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/api/transactions",
+                "host": ["{{base_url}}"],
+                "path": ["api", "transactions"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener la lista de Transacciones",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/api/transactions",
+                "host": ["{{base_url}}"],
+                "path": ["api", "transactions"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener una transacción por ID",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/api/transactions/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "transactions", ":id"]
+              },
+              "description": "Reemplace `:id` con el ID de la transacción."
+            },
+            "response": []
+          },
+          {
+            "name": "Actualizar una transacción por ID",
+            "request": {
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"amount\": 150\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/api/transactions/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "transactions", ":id"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Eliminar una transacción por ID",
+            "request": {
+              "method": "DELETE",
+              "url": {
+                "raw": "{{base_url}}/api/transactions/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "transactions", ":id"]
+              }
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "Transaction Updates",
+        "item": [
+          {
+            "name": "Crear una nueva actualización de estado de la transacción",
+            "request": {
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"new_status\": \"approved\",\n    \"transaction_id\": 1\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/api/transaction-updates",
+                "host": ["{{base_url}}"],
+                "path": ["api", "transaction-updates"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener la lista de actualizaciones de transacciones",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/api/transaction-updates",
+                "host": ["{{base_url}}"],
+                "path": ["api", "transaction-updates"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener una actualización de transacción por ID",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/api/transaction-updates/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "transaction-updates", ":id"]
+              },
+              "description": "Reemplace `:id` con el ID de la actualización de la transacción."
+            },
+            "response": []
+          },
+          {
+            "name": "Actualizar una actualización de transacción por ID",
+            "request": {
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"new_status\": \"rejected\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/api/transaction-updates/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "transaction-updates", ":id"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Eliminar una actualización de transacción por ID",
+            "request": {
+              "method": "DELETE",
+              "url": {
+                "raw": "{{base_url}}/api/transaction-updates/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "transaction-updates", ":id"]
+              }
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "Notifications",
+        "item": [
+          {
+            "name": "Crear una nueva Notificación",
+            "request": {
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"message\": \"Notificación de ejemplo\",\n    \"user_id\": 1,\n    \"transaction_id\": 1\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/api/notifications",
+                "host": ["{{base_url}}"],
+                "path": ["api", "notifications"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener la lista de Notificaciones",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/api/notifications",
+                "host": ["{{base_url}}"],
+                "path": ["api", "notifications"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener una Notificación por ID",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/api/notifications/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "notifications", ":id"]
+              },
+              "description": "Reemplace `:id` con el ID de la Notificación."
+            },
+            "response": []
+          },
+          {
+            "name": "Actualizar una Notificación por ID",
+            "request": {
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"message\": \"Actualización de la notificación\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/api/notifications/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "notifications", ":id"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Eliminar una Notificación por ID",
+            "request": {
+              "method": "DELETE",
+              "url": {
+                "raw": "{{base_url}}/api/notifications/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "notifications", ":id"]
+              }
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "Payin",
+        "item": [
+          {
+            "name": "Obtener los proveedores disponibles para una transacción",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/payin/providers/:reference",
+                "host": ["{{base_url}}"],
+                "path": ["payin", "providers", ":reference"]
+              },
+              "description": "Reemplace `:reference` con la referencia única de la transacción."
+            },
+            "response": []
+          },
+          {
+            "name": "Seleccionar un proveedor y enviar la referencia de pago",
+            "request": {
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"reference\": \"string\",\n    \"providerId\": 1\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/payin/choose-provider",
+                "host": ["{{base_url}}"],
+                "path": ["payin", "choose-provider"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Webhook para notificar que un pago fue realizado exitosamente",
+            "request": {
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"reference\": \"string\"\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/payin/webhook/payment-notification",
+                "host": ["{{base_url}}"],
+                "path": ["payin", "webhook", "payment-notification"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener los detalles de una transacción por referencia",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/payin/transaction/:reference",
+                "host": ["{{base_url}}"],
+                "path": ["payin", "transaction", ":reference"]
+              },
+              "description": "Reemplace `:reference` con la referencia única de la transacción."
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "Global User Transactions",
+        "item": [
+          {
+            "name": "Crear una nueva Global User Transaction",
+            "request": {
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"transaction_type\": \"payin\",\n    \"amount\": 100,\n    \"status\": \"pending\",\n    \"user_id\": 1,\n    \"transaction_id\": 1,\n    \"provider_id\": 1\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/api/global-user-transactions",
+                "host": ["{{base_url}}"],
+                "path": ["api", "global-user-transactions"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener la lista de Global User Transactions",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/api/global-user-transactions",
+                "host": ["{{base_url}}"],
+                "path": ["api", "global-user-transactions"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener una Global User Transaction por ID",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "{{base_url}}/api/global-user-transactions/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "global-user-transactions", ":id"]
+              },
+              "description": "Reemplace `:id` con el ID de la Global User Transaction."
+            },
+            "response": []
+          },
+          {
+            "name": "Actualizar una Global User Transaction por ID",
+            "request": {
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n    \"amount\": 200\n}"
+              },
+              "url": {
+                "raw": "{{base_url}}/api/global-user-transactions/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "global-user-transactions", ":id"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Eliminar una Global User Transaction por ID",
+            "request": {
+              "method": "DELETE",
+              "url": {
+                "raw": "{{base_url}}/api/global-user-transactions/:id",
+                "host": ["{{base_url}}"],
+                "path": ["api", "global-user-transactions", ":id"]
+              }
+            },
+            "response": []
+          }
+        ]
+      }
     ]
-}
+  }
+  
