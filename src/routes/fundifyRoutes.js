@@ -9,28 +9,71 @@ const fundifyController = require('../controllers/fundifyController');
  *     limitParam:
  *       in: query
  *       name: limit
+ *       required: false
  *       schema:
  *         type: integer
  *         default: 20
- *       description: El número máximo de resultados por página
+ *       description: 
+ *         El número máximo de resultados por página. 
+ *         Por defecto, es 20.
  *     offsetParam:
  *       in: query
  *       name: offset
+ *       required: false
  *       schema:
  *         type: integer
  *         default: 0
- *       description: El desplazamiento para la paginación (número de elementos a omitir)
+ *       description: 
+ *         El desplazamiento para la paginación. 
+ *         Indica el número de elementos a omitir; por defecto, es 0.
+ *
+ *   schemas:
+ *     Transaction:
+ *       type: object
+ *       required:
+ *         - id
+ *         - transaction_type
+ *         - amount
+ *         - status
+ *         - user_id
+ *         - provider_id
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: ID de la transacción.
+ *         transaction_type:
+ *           type: string
+ *           enum: [payin, payout]
+ *           description: Tipo de transacción.
+ *         amount:
+ *           type: number
+ *           format: decimal
+ *           description: Monto de la transacción.
+ *         status:
+ *           type: string
+ *           enum: [pending, approved, rejected]
+ *           description: Estado de la transacción.
+ *         transaction_date:
+ *           type: string
+ *           format: date-time
+ *           description: Fecha y hora de la transacción.
+ *         user_id:
+ *           type: integer
+ *           description: ID del usuario relacionado.
+ *         provider_id:
+ *           type: integer
+ *           description: ID del proveedor relacionado.
  *
  * /api/fundify/transactions/completed:
  *   get:
- *     summary: Obtener todas las transacciones completadas con paginación
+ *     summary: Obtener todas las transacciones completadas con paginación.
  *     tags: [Fundify]
  *     parameters:
  *       - $ref: '#/components/parameters/limitParam'
  *       - $ref: '#/components/parameters/offsetParam'
  *     responses:
  *       200:
- *         description: Lista de transacciones completadas
+ *         description: Lista de transacciones completadas.
  *         content:
  *           application/json:
  *             schema:
@@ -38,7 +81,7 @@ const fundifyController = require('../controllers/fundifyController');
  *               items:
  *                 $ref: '#/components/schemas/Transaction'
  *       500:
- *         description: Error del servidor
+ *         description: Error del servidor.
  */
 router.get('/transactions/completed', fundifyController.getCompletedTransactions);
 
@@ -46,14 +89,14 @@ router.get('/transactions/completed', fundifyController.getCompletedTransactions
  * @swagger
  * /api/fundify/transactions/pending:
  *   get:
- *     summary: Obtener todas las transacciones pendientes con paginación
+ *     summary: Obtener todas las transacciones pendientes con paginación.
  *     tags: [Fundify]
  *     parameters:
  *       - $ref: '#/components/parameters/limitParam'
  *       - $ref: '#/components/parameters/offsetParam'
  *     responses:
  *       200:
- *         description: Lista de transacciones pendientes
+ *         description: Lista de transacciones pendientes.
  *         content:
  *           application/json:
  *             schema:
@@ -61,7 +104,7 @@ router.get('/transactions/completed', fundifyController.getCompletedTransactions
  *               items:
  *                 $ref: '#/components/schemas/Transaction'
  *       500:
- *         description: Error del servidor
+ *         description: Error del servidor.
  */
 router.get('/transactions/pending', fundifyController.getPendingTransactions);
 
@@ -69,14 +112,14 @@ router.get('/transactions/pending', fundifyController.getPendingTransactions);
  * @swagger
  * /api/fundify/transactions/last-hour:
  *   get:
- *     summary: Obtener todas las transacciones de la última hora con paginación
+ *     summary: Obtener todas las transacciones de la última hora con paginación.
  *     tags: [Fundify]
  *     parameters:
  *       - $ref: '#/components/parameters/limitParam'
  *       - $ref: '#/components/parameters/offsetParam'
  *     responses:
  *       200:
- *         description: Lista de transacciones de la última hora
+ *         description: Lista de transacciones de la última hora.
  *         content:
  *           application/json:
  *             schema:
@@ -84,7 +127,7 @@ router.get('/transactions/pending', fundifyController.getPendingTransactions);
  *               items:
  *                 $ref: '#/components/schemas/Transaction'
  *       500:
- *         description: Error del servidor
+ *         description: Error del servidor.
  */
 router.get('/transactions/last-hour', fundifyController.getTransactionsLastHour);
 
@@ -92,14 +135,14 @@ router.get('/transactions/last-hour', fundifyController.getTransactionsLastHour)
  * @swagger
  * /api/fundify/transactions/last-24-hours:
  *   get:
- *     summary: Obtener todas las transacciones de las últimas 24 horas con paginación
+ *     summary: Obtener todas las transacciones de las últimas 24 horas con paginación.
  *     tags: [Fundify]
  *     parameters:
  *       - $ref: '#/components/parameters/limitParam'
  *       - $ref: '#/components/parameters/offsetParam'
  *     responses:
  *       200:
- *         description: Lista de transacciones de las últimas 24 horas
+ *         description: Lista de transacciones de las últimas 24 horas.
  *         content:
  *           application/json:
  *             schema:
@@ -107,7 +150,7 @@ router.get('/transactions/last-hour', fundifyController.getTransactionsLastHour)
  *               items:
  *                 $ref: '#/components/schemas/Transaction'
  *       500:
- *         description: Error del servidor
+ *         description: Error del servidor.
  */
 router.get('/transactions/last-24-hours', fundifyController.getTransactionsLast24Hours);
 
@@ -115,14 +158,14 @@ router.get('/transactions/last-24-hours', fundifyController.getTransactionsLast2
  * @swagger
  * /api/fundify/transactions/last-week:
  *   get:
- *     summary: Obtener todas las transacciones de la última semana con paginación
+ *     summary: Obtener todas las transacciones de la última semana con paginación.
  *     tags: [Fundify]
  *     parameters:
  *       - $ref: '#/components/parameters/limitParam'
  *       - $ref: '#/components/parameters/offsetParam'
  *     responses:
  *       200:
- *         description: Lista de transacciones de la última semana
+ *         description: Lista de transacciones de la última semana.
  *         content:
  *           application/json:
  *             schema:
@@ -130,7 +173,7 @@ router.get('/transactions/last-24-hours', fundifyController.getTransactionsLast2
  *               items:
  *                 $ref: '#/components/schemas/Transaction'
  *       500:
- *         description: Error del servidor
+ *         description: Error del servidor.
  */
 router.get('/transactions/last-week', fundifyController.getTransactionsLastWeek);
 
@@ -138,26 +181,26 @@ router.get('/transactions/last-week', fundifyController.getTransactionsLastWeek)
  * @swagger
  * /api/fundify/transactions/{reference}:
  *   get:
- *     summary: Obtener una transacción por referencia
+ *     summary: Obtener una transacción por referencia.
  *     tags: [Fundify]
  *     parameters:
  *       - in: path
  *         name: reference
+ *         required: true
  *         schema:
  *           type: string
- *         required: true
- *         description: Referencia única de la transacción
+ *         description: Referencia única de la transacción.
  *     responses:
  *       200:
- *         description: Transacción obtenida exitosamente
+ *         description: Transacción obtenida exitosamente.
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Transaction'
  *       404:
- *         description: Transacción no encontrada
+ *         description: Transacción no encontrada.
  *       500:
- *         description: Error del servidor
+ *         description: Error del servidor.
  */
 router.get('/transactions/:reference', fundifyController.getTransactionByReference);
 
@@ -165,7 +208,7 @@ router.get('/transactions/:reference', fundifyController.getTransactionByReferen
  * @swagger
  * /api/fundify/webhook/transaction-paid:
  *   post:
- *     summary: Webhook para notificar que una transacción fue pagada
+ *     summary: Webhook para notificar que una transacción fue pagada.
  *     tags: [Fundify]
  *     requestBody:
  *       required: true
@@ -176,12 +219,12 @@ router.get('/transactions/:reference', fundifyController.getTransactionByReferen
  *             properties:
  *               reference:
  *                 type: string
- *                 description: La referencia de la transacción pagada
+ *                 description: La referencia de la transacción pagada.
  *     responses:
  *       200:
- *         description: Transacción actualizada correctamente
+ *         description: Transacción actualizada correctamente.
  *       500:
- *         description: Error del servidor
+ *         description: Error del servidor.
  */
 router.post('/webhook/transaction-paid', fundifyController.webhookTransactionPaid);
 

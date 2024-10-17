@@ -42,7 +42,7 @@ sessionAuthenticatedRoutes.forEach(({ path, route }) => {
 });
 
 // Rutas que requieren API Key
-router.use('/fundify', fundifyRoutes);
+router.use('/fundify', apiKeyAuth, fundifyRoutes);
 router.use('/payin', apiKeyAuth, payinRoutes);
 
 // Ruta para Swagger
