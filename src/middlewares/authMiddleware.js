@@ -1,17 +1,32 @@
+// middlewares/authMiddleware.js
 const jwt = require('jsonwebtoken');
+const env = process.env.NODE_ENV || 'development';
 
-module.exports = (req, res, next) => {
-    const token = req.headers['authorization'];
+// Usamos la variable de entorno JWT_SECRET
+const jwtSecret = process.env.JWT_SECRET || 'default_secret_key'; // Asegúrate de configurar JWT_SECRET en entornos seguros
 
+const authMiddleware = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+
+    if (!authHeader) {
+        return res.status(401).json({ message: 'Token requerido' });
+    }
+
+    // Verificar si el token está en formato 'Bearer token'
+    const token = authHeader.split(' ')[1];
     if (!token) {
-        return res.status(403).json({ message: 'No se proporcionó un token.' });
+        return res.status(401).json({ message: 'Formato de token inválido. Use Bearer {token}' });
     }
 
-    try {
-        const decoded = jwt.verify(token.split(' ')[1], 'your_secret_key');
-        req.user = decoded;  // Almacenar la información del usuario en `req.user`
+    // Verificar y decodificar el token
+    jwt.verify(token, jwtSecret, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ message: 'Token inválido o expirado' });
+        }
+        // Agregar el usuario decodificado al request
+        req.user = decoded;
         next();
-    } catch (error) {
-        res.status(401).json({ message: 'Token inválido.' });
-    }
+    });
 };
+
+module.exports = authMiddleware;
