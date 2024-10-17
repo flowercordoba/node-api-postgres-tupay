@@ -10,9 +10,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      validate: {
-        isEmail: true, // Validación de formato de email
-      }
     },
     password: {
       type: DataTypes.STRING,
@@ -23,11 +20,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
     },
     role: {
-      type: DataTypes.ENUM('user', 'admin'), // Campo para roles
+      type: DataTypes.ENUM('user', 'admin'),
       defaultValue: 'user',
     },
     status: {
-      type: DataTypes.ENUM('active', 'inactive'), // Campo para el estado del usuario
+      type: DataTypes.ENUM('active', 'inactive'),
       defaultValue: 'active',
     }
   }, {
@@ -36,13 +33,11 @@ module.exports = (sequelize, DataTypes) => {
     hooks: {
       beforeCreate: async (user) => {
         if (user.password) {
-          // Hash de la contraseña antes de guardarla
           user.password = await bcrypt.hash(user.password, 10);
         }
       },
       beforeUpdate: async (user) => {
         if (user.password) {
-          // Hash de la contraseña antes de actualizarla
           user.password = await bcrypt.hash(user.password, 10);
         }
       }
@@ -54,6 +49,7 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Transaction, { as: 'transactions', foreignKey: 'user_id' });
     User.hasMany(models.PendingReference, { as: 'pendingReferences', foreignKey: 'user_id' });
     User.hasMany(models.GlobalUserTransaction, { as: 'globalTransactions', foreignKey: 'user_id' });
+
     // Otras asociaciones que desees agregar
   };
 

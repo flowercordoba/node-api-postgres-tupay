@@ -1,4 +1,3 @@
-// models/GlobalUserTransaction.js
 module.exports = (sequelize, DataTypes) => {
     const GlobalUserTransaction = sequelize.define('GlobalUserTransaction', {
         transaction_type: {
@@ -22,7 +21,6 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false,
     });
 
-    // Relación con User, Transaction y Provider
     GlobalUserTransaction.associate = (models) => {
         GlobalUserTransaction.belongsTo(models.User, { foreignKey: 'user_id' });
         GlobalUserTransaction.belongsTo(models.Transaction, { foreignKey: 'transaction_id' });

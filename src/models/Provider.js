@@ -1,4 +1,3 @@
-// models/Provider.js
 module.exports = (sequelize, DataTypes) => {
     const Provider = sequelize.define('Provider', {
         name: {
@@ -23,10 +22,8 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false,
     });
 
-    // Puedes agregar relaciones aquí si en el futuro lo necesitas
     Provider.associate = (models) => {
-        // Ejemplo de cómo relacionar si es necesario
-        // Provider.hasMany(models.ApiKey, { foreignKey: 'provider_id' });
+        Provider.hasMany(models.Transaction, { as: 'transactions', foreignKey: 'provider_id' });
     };
 
     return Provider;
