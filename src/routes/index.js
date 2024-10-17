@@ -11,6 +11,7 @@ const notificationRoutes = require('./notificationRoutes');
 const pendingReferenceRoutes = require('./pendingReferenceRoutes');
 const providerRoutes = require('./providerRoutes');
 const transactionRoutes = require('./transactionRoutes');
+const fundifyRoutes = require('./fundifyRoutes');
 const swaggerRoutes = require('./swaggerRoutes');
 
 // Conectar las rutas de usuario
@@ -40,6 +41,9 @@ router.use(providerRoutes);
 
 // Conectar las rutas de Transacciones
 router.use(transactionRoutes);
+
+// Conectar las rutas de Fundify
+router.use(fundifyRoutes);
 
 // Conectar las rutas de Swagger
 router.use(swaggerRoutes);
