@@ -1,8 +1,7 @@
 // app.js
 const express = require('express');
 const db = require('./models'); // Importar los modelos desde models/index.js
-const userRoutes = require('./routes/userRoutes');
-const transactionRoutes = require('./routes/transactionRoutes');
+const routes = require('./routes'); // Importar las rutas centralizadas
 
 require('dotenv').config();
 
@@ -15,11 +14,8 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 
-
-
-// // Rutas
-// app.use('/users', userRoutes);
-// app.use('/transactions', transactionRoutes);
+// Usar las rutas centralizadas
+app.use('/api', routes);
 
 // Inicializa los modelos y arranca el servidor
 // Sincronizar la base de datos
