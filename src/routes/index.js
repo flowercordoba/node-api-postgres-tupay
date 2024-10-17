@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
-// Importar las rutas de usuario
 const userRoutes = require('./userRoutes');
-
-// Importar las rutas de Swagger
+const apiKeyRoutes = require('./apiKeyRoutes');
 const swaggerRoutes = require('./swaggerRoutes');
 
-// Usar las rutas de usuario
+// Conectar las rutas de usuario
 router.use('/users', userRoutes);
 
-// Usar las rutas de Swagger (documentación)
+// Conectar las rutas de API Keys
+router.use(apiKeyRoutes);
+
+// Conectar las rutas de Swagger
 router.use(swaggerRoutes);
 
 module.exports = router;
