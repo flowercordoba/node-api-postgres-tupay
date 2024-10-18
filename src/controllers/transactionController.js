@@ -8,10 +8,23 @@ const validateTransactionFields = (req, res, next) => {
   const missingFields = requiredFields.filter(field => !req.body[field]);
 
   if (missingFields.length) {
-    return res.status(400).json({ error: 'Faltan campos requeridos', missingFields });
+    return res.status(400).json({ 
+      error: 'Faltan campos requeridos', 
+      missingFields 
+    });
   }
 
   next();
+};
+
+// Función para generar un número de factura basado en el ID de la factura
+const generateInvoiceNumber = async () => {
+  const latestInvoice = await Invoice.findOne({
+    order: [['id', 'DESC']],
+  });
+
+  const invoiceId = latestInvoice ? latestInvoice.id + 1 : 1; // Incrementar o comenzar desde 1
+  return `INV-${invoiceId}`;
 };
 
 // Crear una nueva Transacción
@@ -32,12 +45,14 @@ exports.createTransaction = [
       });
 
       // Solo crear la factura si se selecciona un método de pago específico
-      if (method === 'invoice') { // Ajusta el método según tus necesidades
+      if (method === 'invoice') {
+        const invoice_number = await generateInvoiceNumber();
+
         const invoice = await Invoice.create({
-          invoice_number: `INV-${transaction.id}`, // Puedes usar un formato diferente si lo deseas
+          invoice_number, 
           transaction_id: transaction.id,
           amount: transaction.amount,
-          status: 'pending', // o el estado que necesites
+          status: 'pending',
         });
 
         // Agregar la factura a la respuesta si es necesario
@@ -50,6 +65,9 @@ exports.createTransaction = [
     }
   }
 ];
+
+
+
 
 exports.processPayment = async (req, res) => {
   try {
