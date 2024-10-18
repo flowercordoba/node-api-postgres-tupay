@@ -447,9 +447,9 @@
         }
       }
     },
-    "/fundify/transactions/completed": {
+    "/api/fundify/transactions/completed": {
       "get": {
-        "summary": "Obtener todas las transacciones completadas con paginación",
+        "summary": "Obtener todas las transacciones completadas con paginación.",
         "tags": [
           "Fundify"
         ],
@@ -463,7 +463,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Lista de transacciones completadas",
+            "description": "Lista de transacciones completadas.",
             "content": {
               "application/json": {
                 "schema": {
@@ -476,14 +476,14 @@
             }
           },
           "500": {
-            "description": "Error del servidor"
+            "description": "Error del servidor."
           }
         }
       }
     },
-    "/fundify/transactions/pending": {
+    "/api/fundify/transactions/pending": {
       "get": {
-        "summary": "Obtener todas las transacciones pendientes con paginación",
+        "summary": "Obtener todas las transacciones pendientes con paginación.",
         "tags": [
           "Fundify"
         ],
@@ -497,7 +497,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Lista de transacciones pendientes",
+            "description": "Lista de transacciones pendientes.",
             "content": {
               "application/json": {
                 "schema": {
@@ -510,14 +510,14 @@
             }
           },
           "500": {
-            "description": "Error del servidor"
+            "description": "Error del servidor."
           }
         }
       }
     },
-    "/fundify/transactions/last-hour": {
+    "/api/fundify/transactions/last-hour": {
       "get": {
-        "summary": "Obtener todas las transacciones de la última hora con paginación",
+        "summary": "Obtener todas las transacciones de la última hora con paginación.",
         "tags": [
           "Fundify"
         ],
@@ -531,7 +531,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Lista de transacciones de la última hora",
+            "description": "Lista de transacciones de la última hora.",
             "content": {
               "application/json": {
                 "schema": {
@@ -544,14 +544,14 @@
             }
           },
           "500": {
-            "description": "Error del servidor"
+            "description": "Error del servidor."
           }
         }
       }
     },
-    "/fundify/transactions/last-24-hours": {
+    "/api/fundify/transactions/last-24-hours": {
       "get": {
-        "summary": "Obtener todas las transacciones de las últimas 24 horas con paginación",
+        "summary": "Obtener todas las transacciones de las últimas 24 horas con paginación.",
         "tags": [
           "Fundify"
         ],
@@ -565,7 +565,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Lista de transacciones de las últimas 24 horas",
+            "description": "Lista de transacciones de las últimas 24 horas.",
             "content": {
               "application/json": {
                 "schema": {
@@ -578,14 +578,14 @@
             }
           },
           "500": {
-            "description": "Error del servidor"
+            "description": "Error del servidor."
           }
         }
       }
     },
-    "/fundify/transactions/last-week": {
+    "/api/fundify/transactions/last-week": {
       "get": {
-        "summary": "Obtener todas las transacciones de la última semana con paginación",
+        "summary": "Obtener todas las transacciones de la última semana con paginación.",
         "tags": [
           "Fundify"
         ],
@@ -599,7 +599,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Lista de transacciones de la última semana",
+            "description": "Lista de transacciones de la última semana.",
             "content": {
               "application/json": {
                 "schema": {
@@ -612,14 +612,14 @@
             }
           },
           "500": {
-            "description": "Error del servidor"
+            "description": "Error del servidor."
           }
         }
       }
     },
-    "/fundify/transactions/{reference}": {
+    "/api/fundify/transactions/{reference}": {
       "get": {
-        "summary": "Obtener una transacción por referencia",
+        "summary": "Obtener una transacción por referencia.",
         "tags": [
           "Fundify"
         ],
@@ -627,16 +627,16 @@
           {
             "in": "path",
             "name": "reference",
+            "required": true,
             "schema": {
               "type": "string"
             },
-            "required": true,
-            "description": "Referencia única de la transacción"
+            "description": "Referencia única de la transacción."
           }
         ],
         "responses": {
           "200": {
-            "description": "Transacción obtenida exitosamente",
+            "description": "Transacción obtenida exitosamente.",
             "content": {
               "application/json": {
                 "schema": {
@@ -646,17 +646,17 @@
             }
           },
           "404": {
-            "description": "Transacción no encontrada"
+            "description": "Transacción no encontrada."
           },
           "500": {
-            "description": "Error del servidor"
+            "description": "Error del servidor."
           }
         }
       }
     },
-    "/fundify/webhook/transaction-paid": {
+    "/api/fundify/webhook/transaction-paid": {
       "post": {
-        "summary": "Webhook para notificar que una transacción fue pagada",
+        "summary": "Webhook para notificar que una transacción fue pagada.",
         "tags": [
           "Fundify"
         ],
@@ -669,7 +669,7 @@
                 "properties": {
                   "reference": {
                     "type": "string",
-                    "description": "La referencia de la transacción pagada"
+                    "description": "La referencia de la transacción pagada."
                   }
                 }
               }
@@ -678,10 +678,10 @@
         },
         "responses": {
           "200": {
-            "description": "Transacción actualizada correctamente"
+            "description": "Transacción actualizada correctamente."
           },
           "500": {
-            "description": "Error del servidor"
+            "description": "Error del servidor."
           }
         }
       }
@@ -846,6 +846,312 @@
           },
           "404": {
             "description": "Global User Transaction no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/v2/interbanco/{referencia}": {
+      "get": {
+        "summary": "Consultar referencia",
+        "tags": [
+          "Interbanco"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "referencia",
+            "required": true,
+            "description": "La referencia de la transacción a consultar",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Referencia consultada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterbancoReference"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transacción no encontrada"
+          },
+          "500": {
+            "description": "Error del servidor"
+          }
+        }
+      }
+    },
+    "/api/v2/changeinterbanco": {
+      "post": {
+        "summary": "Procesar una transacción y generar un número de factura",
+        "tags": [
+          "Interbanco"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "transactionId": {
+                    "type": "integer",
+                    "description": "ID de la transacción a procesar"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transacción procesada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Mensaje de éxito"
+                    },
+                    "transaction": {
+                      "$ref": "#/components/schemas/Transaction"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transacción no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor al procesar la transacción"
+          }
+        }
+      }
+    },
+    "/api/invoices": {
+      "post": {
+        "summary": "Crear una nueva factura",
+        "tags": [
+          "Invoice"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "invoice_number": {
+                    "type": "string",
+                    "description": "Número de factura"
+                  },
+                  "transaction_id": {
+                    "type": "integer",
+                    "description": "ID de la transacción asociada"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "format": "decimal",
+                    "description": "Monto de la factura"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "pending",
+                      "paid",
+                      "canceled"
+                    ],
+                    "description": "Estado de la factura"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Factura creada con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invoice"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transacción no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "get": {
+        "summary": "Obtener todas las facturas",
+        "tags": [
+          "Invoice"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de facturas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Invoice"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
+    "/api/invoices/{id}": {
+      "get": {
+        "summary": "Obtener una factura por ID",
+        "tags": [
+          "Invoice"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la factura"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Factura encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invoice"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Factura no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar una factura por ID",
+        "tags": [
+          "Invoice"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la factura"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "invoice_number": {
+                    "type": "string",
+                    "description": "Número de factura"
+                  },
+                  "transaction_id": {
+                    "type": "integer",
+                    "description": "ID de la transacción asociada"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "format": "decimal",
+                    "description": "Monto de la factura"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "pending",
+                      "paid",
+                      "canceled"
+                    ],
+                    "description": "Estado de la factura"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Factura actualizada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Invoice"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Factura no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una factura por ID",
+        "tags": [
+          "Invoice"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la factura"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Factura eliminada con éxito"
+          },
+          "404": {
+            "description": "Factura no encontrada"
           },
           "500": {
             "description": "Error en el servidor"
@@ -1020,49 +1326,9 @@
         }
       }
     },
-    "/payin/providers/{reference}": {
-      "get": {
-        "summary": "Obtener los proveedores disponibles para una transacción",
-        "tags": [
-          "Payin"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "reference",
-            "schema": {
-              "type": "string",
-              "description": "La referencia única de la transacción"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Proveedores disponibles obtenidos exitosamente",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Provider"
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Transacción no encontrada"
-          },
-          "500": {
-            "description": "Error del servidor"
-          }
-        }
-      }
-    },
-    "/payin/choose-provider": {
+    "/api/payin": {
       "post": {
-        "summary": "Seleccionar un proveedor y enviar la referencia de pago",
+        "summary": "Registrar un pago (payin)",
         "tags": [
           "Payin"
         ],
@@ -1075,11 +1341,39 @@
                 "properties": {
                   "reference": {
                     "type": "string",
-                    "description": "Referencia única de la transacción"
+                    "description": "La referencia única de la transacción."
                   },
-                  "providerId": {
+                  "amount": {
+                    "type": "number",
+                    "description": "Monto del pago."
+                  },
+                  "currency": {
+                    "type": "string",
+                    "description": "Tipo de moneda."
+                  },
+                  "numdoc": {
+                    "type": "string",
+                    "description": "Número de identificación del usuario."
+                  },
+                  "username": {
+                    "type": "string",
+                    "description": "Nombre del usuario."
+                  },
+                  "userphone": {
+                    "type": "string",
+                    "description": "Número de teléfono del usuario."
+                  },
+                  "useremail": {
+                    "type": "string",
+                    "description": "Correo electrónico del usuario."
+                  },
+                  "method": {
+                    "type": "string",
+                    "description": "Método de pago utilizado."
+                  },
+                  "provider_id": {
                     "type": "integer",
-                    "description": "ID del proveedor seleccionado"
+                    "description": "ID del proveedor asociado al pago."
                   }
                 }
               }
@@ -1087,38 +1381,36 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Proveedor seleccionado correctamente y redirigido",
+          "201": {
+            "description": "Pago registrado y factura creada con éxito.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
                     "message": {
-                      "type": "string",
-                      "description": "Mensaje de confirmación"
+                      "type": "string"
                     },
-                    "redirectUrl": {
-                      "type": "string",
-                      "description": "URL de pago a la que se redirige al usuario"
+                    "transaction": {
+                      "$ref": "#/components/schemas/Transaction"
+                    },
+                    "invoice": {
+                      "$ref": "#/components/schemas/Invoice"
                     }
                   }
                 }
               }
             }
           },
-          "404": {
-            "description": "Transacción o proveedor no encontrado"
-          },
           "500": {
-            "description": "Error del servidor"
+            "description": "Error al registrar el pago."
           }
         }
       }
     },
-    "/payin/webhook/payment-notification": {
+    "/api/payin/webhook/payment-confirmed": {
       "post": {
-        "summary": "Webhook para notificar que un pago fue realizado exitosamente",
+        "summary": "Webhook para notificar que un pago ha sido confirmado por el proveedor.",
         "tags": [
           "Payin"
         ],
@@ -1131,7 +1423,7 @@
                 "properties": {
                   "reference": {
                     "type": "string",
-                    "description": "Referencia única de la transacción"
+                    "description": "La referencia de la transacción pagada."
                   }
                 }
               }
@@ -1140,41 +1432,101 @@
         },
         "responses": {
           "200": {
-            "description": "Pago recibido y transacción actualizada"
+            "description": "Estado de la transacción y factura actualizado a pagado."
           },
           "404": {
-            "description": "Transacción no encontrada"
+            "description": "Transacción o factura no encontrada."
           },
           "500": {
-            "description": "Error del servidor"
+            "description": "Error al actualizar el estado de la transacción y factura."
           }
         }
       }
     },
-    "/payin/transaction/{reference}": {
-      "get": {
-        "summary": "Obtener los detalles de una transacción por referencia",
+    "/api/payouts": {
+      "post": {
+        "summary": "Crear una nueva transacción de tipo payout",
         "tags": [
-          "Payin"
+          "Payout"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Payout"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Transacción de payout creada con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payout"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud inválida, faltan campos requeridos"
+          },
+          "500": {
+            "description": "Error en el servidor al crear la transacción"
+          }
+        }
+      },
+      "get": {
+        "summary": "Obtener la lista de transacciones de payout",
+        "tags": [
+          "Payout"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de transacciones de payout obtenida con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Payout"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor al obtener la lista de transacciones"
+          }
+        }
+      }
+    },
+    "/api/payouts/{id}": {
+      "get": {
+        "summary": "Obtener una transacción de payout por ID",
+        "tags": [
+          "Payout"
         ],
         "parameters": [
           {
             "in": "path",
-            "name": "reference",
+            "name": "id",
             "schema": {
-              "type": "string",
-              "description": "Referencia única de la transacción"
+              "type": "integer"
             },
-            "required": true
+            "required": true,
+            "description": "ID de la transacción de payout que se desea obtener"
           }
         ],
         "responses": {
           "200": {
-            "description": "Detalles de la transacción obtenidos exitosamente",
+            "description": "Transacción de payout encontrada y devuelta con éxito",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Transaction"
+                  "$ref": "#/components/schemas/Payout"
                 }
               }
             }
@@ -1183,7 +1535,83 @@
             "description": "Transacción no encontrada"
           },
           "500": {
-            "description": "Error del servidor"
+            "description": "Error en el servidor al obtener la transacción"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar una transacción de payout por ID",
+        "tags": [
+          "Payout"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la transacción de payout que se desea actualizar"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Payout"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transacción de payout actualizada con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payout"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud inválida, faltan campos requeridos"
+          },
+          "404": {
+            "description": "Transacción no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor al actualizar la transacción"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una transacción de payout por ID",
+        "tags": [
+          "Payout"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID de la transacción de payout que se desea eliminar"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Transacción de payout eliminada con éxito"
+          },
+          "404": {
+            "description": "Transacción no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor al eliminar la transacción"
           }
         }
       }
@@ -1422,11 +1850,11 @@
           {
             "in": "path",
             "name": "id",
+            "required": true,
+            "description": "ID del proveedor",
             "schema": {
               "type": "integer"
-            },
-            "required": true,
-            "description": "ID del proveedor"
+            }
           }
         ],
         "responses": {
@@ -1457,11 +1885,11 @@
           {
             "in": "path",
             "name": "id",
+            "required": true,
+            "description": "ID del proveedor",
             "schema": {
               "type": "integer"
-            },
-            "required": true,
-            "description": "ID del proveedor"
+            }
           }
         ],
         "requestBody": {
@@ -1502,11 +1930,11 @@
           {
             "in": "path",
             "name": "id",
+            "required": true,
+            "description": "ID del proveedor",
             "schema": {
               "type": "integer"
-            },
-            "required": true,
-            "description": "ID del proveedor"
+            }
           }
         ],
         "responses": {
@@ -1522,9 +1950,53 @@
         }
       }
     },
+    "/api/providers/country/{country}": {
+      "get": {
+        "summary": "Obtener proveedores según el código de país",
+        "tags": [
+          "Provider"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "country",
+            "required": true,
+            "description": "Código de país ISO 3166-1 alpha-2",
+            "schema": {
+              "type": "string",
+              "example": "CO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de proveedores encontrados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Provider"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "El código de país es inválido"
+          },
+          "404": {
+            "description": "No se encontraron proveedores para este país"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
     "/api/transactions": {
       "post": {
-        "summary": "Crear una nueva Transacción",
+        "summary": "Crear una nueva transacción",
         "tags": [
           "Transaction"
         ],
@@ -1549,19 +2021,22 @@
               }
             }
           },
+          "400": {
+            "description": "Solicitud inválida, faltan campos requeridos"
+          },
           "500": {
-            "description": "Error en el servidor"
+            "description": "Error en el servidor al crear la transacción"
           }
         }
       },
       "get": {
-        "summary": "Obtener la lista de Transacciones",
+        "summary": "Obtener la lista de transacciones",
         "tags": [
           "Transaction"
         ],
         "responses": {
           "200": {
-            "description": "Lista de transacciones",
+            "description": "Lista de transacciones obtenida con éxito",
             "content": {
               "application/json": {
                 "schema": {
@@ -1574,7 +2049,7 @@
             }
           },
           "500": {
-            "description": "Error en el servidor"
+            "description": "Error en el servidor al obtener la lista de transacciones"
           }
         }
       }
@@ -1593,12 +2068,12 @@
               "type": "integer"
             },
             "required": true,
-            "description": "ID de la transacción"
+            "description": "ID de la transacción que se desea obtener"
           }
         ],
         "responses": {
           "200": {
-            "description": "Transacción encontrada",
+            "description": "Transacción encontrada y devuelta con éxito",
             "content": {
               "application/json": {
                 "schema": {
@@ -1611,7 +2086,7 @@
             "description": "Transacción no encontrada"
           },
           "500": {
-            "description": "Error en el servidor"
+            "description": "Error en el servidor al obtener la transacción"
           }
         }
       },
@@ -1628,7 +2103,7 @@
               "type": "integer"
             },
             "required": true,
-            "description": "ID de la transacción"
+            "description": "ID de la transacción que se desea actualizar"
           }
         ],
         "requestBody": {
@@ -1643,7 +2118,7 @@
         },
         "responses": {
           "200": {
-            "description": "Transacción actualizada",
+            "description": "Transacción actualizada con éxito",
             "content": {
               "application/json": {
                 "schema": {
@@ -1652,11 +2127,14 @@
               }
             }
           },
+          "400": {
+            "description": "Solicitud inválida, faltan campos requeridos"
+          },
           "404": {
             "description": "Transacción no encontrada"
           },
           "500": {
-            "description": "Error en el servidor"
+            "description": "Error en el servidor al actualizar la transacción"
           }
         }
       },
@@ -1673,7 +2151,7 @@
               "type": "integer"
             },
             "required": true,
-            "description": "ID de la transacción"
+            "description": "ID de la transacción que se desea eliminar"
           }
         ],
         "responses": {
@@ -1684,7 +2162,58 @@
             "description": "Transacción no encontrada"
           },
           "500": {
-            "description": "Error en el servidor"
+            "description": "Error en el servidor al eliminar la transacción"
+          }
+        }
+      }
+    },
+    "/api/transactions/process": {
+      "post": {
+        "summary": "Procesar una transacción y generar un número de factura",
+        "tags": [
+          "Transaction"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "transactionId": {
+                    "type": "integer",
+                    "description": "ID de la transacción a procesar"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Transacción procesada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Mensaje de éxito"
+                    },
+                    "transaction": {
+                      "$ref": "#/components/schemas/Transaction"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Transacción no encontrada"
+          },
+          "500": {
+            "description": "Error en el servidor al procesar la transacción"
           }
         }
       }
@@ -2207,6 +2736,135 @@
           }
         }
       },
+      "Transaction": {
+        "type": "object",
+        "required": [
+          "transaction_type",
+          "amount",
+          "status",
+          "user_id",
+          "provider_id",
+          "reference",
+          "expiration",
+          "currency",
+          "numdoc",
+          "username",
+          "userphone",
+          "useremail",
+          "userbank",
+          "usertypeaccount",
+          "usernumaccount",
+          "typetransaction",
+          "method",
+          "bankAgreementNumber"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID único de la transacción"
+          },
+          "transaction_type": {
+            "type": "string",
+            "enum": [
+              "payin",
+              "payout"
+            ],
+            "description": "Tipo de transacción"
+          },
+          "amount": {
+            "type": "number",
+            "format": "decimal",
+            "description": "Monto total de la transacción"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "approved",
+              "rejected"
+            ],
+            "description": "Estado actual de la transacción"
+          },
+          "transaction_date": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Fecha y hora en que se registró la transacción"
+          },
+          "user_id": {
+            "type": "integer",
+            "description": "ID del usuario asociado a la transacción"
+          },
+          "provider_id": {
+            "type": "integer",
+            "description": "ID del proveedor asociado a la transacción"
+          },
+          "reference": {
+            "type": "string",
+            "description": "Referencia de pago"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Tipo de moneda"
+          },
+          "numdoc": {
+            "type": "string",
+            "description": "Número de identificación del usuario"
+          },
+          "username": {
+            "type": "string",
+            "description": "Nombre del usuario"
+          },
+          "userphone": {
+            "type": "string",
+            "description": "Número de celular del usuario"
+          },
+          "useremail": {
+            "type": "string",
+            "description": "Correo electrónico del usuario"
+          },
+          "userbank": {
+            "type": "string",
+            "description": "Nombre del banco del usuario"
+          },
+          "usernumaccount": {
+            "type": "string",
+            "description": "Número de cuenta bancaria"
+          },
+          "typetransaction": {
+            "type": "string",
+            "description": "Tipo de transacción"
+          },
+          "method": {
+            "type": "string",
+            "description": "Método de pago utilizado"
+          },
+          "accountNumber": {
+            "type": "string",
+            "description": "Número de cuenta utilizado para la transacción."
+          },
+          "bankAgreementNumber": {
+            "type": "string",
+            "description": "Número de acuerdo bancario asociado."
+          },
+          "paymentReceipt": {
+            "type": "string",
+            "description": "Recibo de pago, si aplica."
+          },
+          "expiration": {
+            "type": "string",
+            "format": "date",
+            "description": "Fecha de expiración del enlace de pago"
+          },
+          "usertypeaccount": {
+            "type": "string",
+            "enum": [
+              "AHORRO",
+              "CORRIENTE"
+            ],
+            "description": "Tipo de cuenta bancaria"
+          }
+        }
+      },
       "GlobalUserTransaction": {
         "type": "object",
         "required": [
@@ -2263,6 +2921,24 @@
           }
         }
       },
+      "InterbancoReference": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string",
+            "description": "La referencia única de la transacción"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "approved",
+              "rejected"
+            ],
+            "description": "Estado de la transacción"
+          }
+        }
+      },
       "Notification": {
         "type": "object",
         "required": [
@@ -2294,71 +2970,31 @@
           }
         }
       },
-      "Provider": {
+      "Payout": {
         "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "description": "ID del proveedor"
-          },
-          "name": {
-            "type": "string",
-            "description": "Nombre del proveedor"
-          },
-          "paymentUrl": {
-            "type": "string",
-            "description": "URL de pago del proveedor"
-          },
-          "contact_email": {
-            "type": "string",
-            "description": "Email de contacto del proveedor"
-          },
-          "api_key": {
-            "type": "string",
-            "description": "Clave API única del proveedor"
-          },
-          "is_active": {
-            "type": "boolean",
-            "description": "Estado del proveedor"
-          }
-        },
         "required": [
-          "name",
-          "api_key"
-        ]
-      },
-      "Transaction": {
-        "type": "object",
+          "transaction_type",
+          "amount",
+          "status",
+          "user_id",
+          "provider_id",
+          "reference",
+          "expiration",
+          "currency",
+          "numdoc",
+          "username",
+          "userphone",
+          "useremail",
+          "userbank",
+          "usertypeaccount",
+          "usernumaccount",
+          "typetransaction",
+          "method"
+        ],
         "properties": {
           "id": {
             "type": "integer",
-            "description": "ID de la Transacción"
-          },
-          "user_id": {
-            "type": "integer",
-            "description": "ID del usuario relacionado"
-          },
-          "reference": {
-            "type": "string",
-            "description": "Referencia única de la transacción"
-          },
-          "amount": {
-            "type": "number",
-            "format": "decimal",
-            "description": "Monto de la transacción"
-          },
-          "currency": {
-            "type": "string",
-            "description": "Moneda utilizada en la transacción"
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "pending",
-              "approved",
-              "rejected"
-            ],
-            "description": "Estado de la transacción"
+            "description": "ID único de la transacción"
           },
           "transaction_type": {
             "type": "string",
@@ -2368,23 +3004,86 @@
             ],
             "description": "Tipo de transacción"
           },
+          "amount": {
+            "type": "string",
+            "description": "Monto total de la transacción"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "approved",
+              "rejected"
+            ],
+            "description": "Estado actual de la transacción"
+          },
           "transaction_date": {
             "type": "string",
             "format": "date-time",
-            "description": "Fecha y hora de la transacción"
+            "description": "Fecha y hora en que se registró la transacción"
+          },
+          "user_id": {
+            "type": "integer",
+            "description": "ID del usuario asociado a la transacción"
           },
           "provider_id": {
             "type": "integer",
-            "description": "ID del proveedor relacionado"
+            "description": "ID del proveedor asociado a la transacción"
+          },
+          "reference": {
+            "type": "string",
+            "description": "Referencia de pago"
+          },
+          "expiration": {
+            "type": "string",
+            "format": "date",
+            "description": "Fecha de expiración del enlace de pago"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Tipo de moneda"
+          },
+          "numdoc": {
+            "type": "string",
+            "description": "Número de identificación del usuario"
+          },
+          "username": {
+            "type": "string",
+            "description": "Nombre del usuario"
+          },
+          "userphone": {
+            "type": "string",
+            "description": "Número de celular del usuario"
+          },
+          "useremail": {
+            "type": "string",
+            "description": "Correo electrónico del usuario"
+          },
+          "userbank": {
+            "type": "string",
+            "description": "Nombre del banco del usuario"
+          },
+          "usertypeaccount": {
+            "type": "string",
+            "enum": [
+              "AHORRO",
+              "CORRIENTE"
+            ],
+            "description": "Tipo de cuenta bancaria"
+          },
+          "usernumaccount": {
+            "type": "string",
+            "description": "Número de cuenta bancaria"
+          },
+          "typetransaction": {
+            "type": "string",
+            "description": "Tipo de transacción"
+          },
+          "method": {
+            "type": "string",
+            "description": "Método de pago utilizado"
           }
-        },
-        "required": [
-          "transaction_type",
-          "amount",
-          "status",
-          "user_id",
-          "provider_id"
-        ]
+        }
       },
       "PendingReference": {
         "type": "object",
@@ -2418,6 +3117,40 @@
           "provider_id": {
             "type": "integer",
             "description": "ID del proveedor relacionado"
+          }
+        }
+      },
+      "Provider": {
+        "type": "object",
+        "required": [
+          "name",
+          "api_key",
+          "country"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ID del proveedor"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nombre del proveedor"
+          },
+          "contact_email": {
+            "type": "string",
+            "description": "Email de contacto del proveedor"
+          },
+          "api_key": {
+            "type": "string",
+            "description": "Clave API única del proveedor"
+          },
+          "is_active": {
+            "type": "boolean",
+            "description": "Estado del proveedor"
+          },
+          "country": {
+            "type": "string",
+            "description": "País donde el proveedor está disponible"
           }
         }
       },
@@ -2492,20 +3225,22 @@
       "limitParam": {
         "in": "query",
         "name": "limit",
+        "required": false,
         "schema": {
           "type": "integer",
           "default": 20
         },
-        "description": "El número máximo de resultados por página"
+        "description": "El número máximo de resultados por página. Por defecto, es 20."
       },
       "offsetParam": {
         "in": "query",
         "name": "offset",
+        "required": false,
         "schema": {
           "type": "integer",
           "default": 0
         },
-        "description": "El desplazamiento para la paginación (número de elementos a omitir)"
+        "description": "El desplazamiento para la paginación. Indica el número de elementos a omitir; por defecto, es 0."
       }
     }
   },

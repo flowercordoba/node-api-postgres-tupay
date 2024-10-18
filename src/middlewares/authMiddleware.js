@@ -6,6 +6,14 @@ const env = process.env.NODE_ENV || 'development';
 const jwtSecret = process.env.JWT_SECRET || 'default_secret_key'; // Asegúrate de configurar JWT_SECRET en entornos seguros
 
 const authMiddleware = (req, res, next) => {
+    // Comprobar si la aplicación está en modo desarrollo
+    const isDevelopment = env === 'development';
+
+    // Si está en desarrollo, permite el acceso
+    if (isDevelopment) {
+        return next();
+    }
+
     const authHeader = req.headers['authorization'];
 
     if (!authHeader) {
