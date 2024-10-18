@@ -12,6 +12,7 @@ module.exports = {
       const existingUsers = await queryInterface.sequelize.query(
         `SELECT user_id FROM users WHERE email IN ('john.doe@example.com', 'admin@example.com')`
       );
+      console.log('Existing users:', existingUsers[0]);
 
       // Solo insertar si no existen los usuarios
       if (existingUsers[0].length === 0) {
@@ -49,20 +50,20 @@ module.exports = {
         // Solo insertar proveedores si no existen
         providers = await queryInterface.bulkInsert('providers', [
           {
-            name: 'Provider 3',
-            contact_email: 'provider3@example.com',
-            api_key: 'provider3-api-key',
+            name: 'Provider 1',
+            contact_email: 'provider1@example.com',
+            api_key: 'provider1-api-key',
             is_active: true,
             country: 'CO' // Ajusta según sea necesario
           },
           {
-            name: 'Provider 4',
-            contact_email: 'provider4@example.com',
-            api_key: 'provider4-api-key',
+            name: 'Provider 2',
+            contact_email: 'provider2@example.com',
+            api_key: 'provider2-api-key',
             is_active: true,
             country: 'CO' // Ajusta según sea necesario
           }
-        ]);
+        ], { returning: true });
       } else {
         // Si los proveedores ya existen, obtén sus IDs para las transacciones
         console.log('Providers already exist:', existingProviders[0]);
@@ -71,7 +72,7 @@ module.exports = {
 
       // Generar 50 transacciones fake
       const transactions = [];
-      for (let i = 0; i < 1; i++) {
+      for (let i = 0; i < 10; i++) {
         const transaction = {
           transaction_type: faker.helpers.arrayElement(['payin', 'payout']),
           amount: parseFloat(faker.finance.amount(50, 1000, 2)),
@@ -97,21 +98,37 @@ module.exports = {
           usernumaccount: faker.string.numeric(20),
           expiration: faker.date.future(),
           issueDate: faker.date.past(), // Asegúrate de proporcionar un valor aquí
-          dueDate: faker.date.future() // Asegúrate de proporcionar un valor aquí
+          dueDate: faker.date.future(), // Asegúrate de proporcionar un valor aquí
+          username: faker.person.fullName().slice(0, 50), // Asegúrate de que el nombre no supere los 50 caracteres
+          userphone: faker.phone.number(), // Asegúrate de que esto no exceda los 20 caracteres
         };
-      
 
         transactions.push(transaction);
       }
 
       // Insertar las transacciones generadas
-      await queryInterface.bulkInsert('transactions', transactions);
+      const insertedTransactions = await queryInterface.bulkInsert('transactions', transactions, { returning: true });
+
+      // Generar facturas asociadas a las transacciones
+      const invoices = insertedTransactions.map(transaction => ({
+        transaction_id: transaction.id, // Asociar cada factura con una transacción
+        invoice_number: faker.string.uuid(), // Usar UUID como número de factura para garantizar unicidad
+        amount: transaction.amount, // El monto de la factura es el mismo que la transacción
+        status: 'pending', // Estado inicial de la factura
+        created_at: new Date(), // Asegúrate de que coincide con el nombre del campo en el modelo
+      }));
+
+
+      // Insertar las facturas generadas
+      await queryInterface.bulkInsert('invoices', invoices);
+
     } catch (error) {
       console.error('Error during seeding:', error);
     }
   },
 
   down: async (queryInterface, Sequelize) => {
+    await queryInterface.bulkDelete('invoices', null, {});
     await queryInterface.bulkDelete('transactions', null, {});
     await queryInterface.bulkDelete('providers', null, {});
     await queryInterface.bulkDelete('users', null, {});
