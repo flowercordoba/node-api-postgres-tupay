@@ -1,9 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
     const Provider = sequelize.define('Provider', {
-        provider_id: {  // Asegúrate de que el campo 'provider_id' esté definido
+        provider_id: {
             type: DataTypes.INTEGER,
-            autoIncrement: true, // Si es autoincrementable
-            primaryKey: true, // Defínelo como clave primaria
+            autoIncrement: true,
+            primaryKey: true,
         },
         name: {
             type: DataTypes.STRING,
@@ -21,7 +21,11 @@ module.exports = (sequelize, DataTypes) => {
         is_active: {
             type: DataTypes.BOOLEAN,
             defaultValue: true,
-        }
+        },
+        country: {
+            type: DataTypes.STRING(2), // Se espera un código de país ISO 3166-1 alpha-2
+            allowNull: true, // Cambiar a true temporalmente
+        }        
     }, {
         tableName: 'providers',
         timestamps: false,
