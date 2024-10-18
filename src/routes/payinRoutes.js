@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const payinController = require('../controllers/payinController');
-
+const transactionController = require('../controllers/payinController');
 
 /**
  * @swagger
- * api/payin/webhook/payment-notification:
+ * /api/payin:
  *   post:
- *     summary: Webhook para notificar que un pago fue realizado exitosamente
+ *     summary: Registrar un pago (payin)
  *     tags: [Payin]
  *     requestBody:
  *       required: true
@@ -18,42 +17,74 @@ const payinController = require('../controllers/payinController');
  *             properties:
  *               reference:
  *                 type: string
- *                 description: Referencia única de la transacción
+ *                 description: La referencia única de la transacción.
+ *               amount:
+ *                 type: number
+ *                 description: Monto del pago.
+ *               currency:
+ *                 type: string
+ *                 description: Tipo de moneda.
+ *               numdoc:
+ *                 type: string
+ *                 description: Número de identificación del usuario.
+ *               username:
+ *                 type: string
+ *                 description: Nombre del usuario.
+ *               userphone:
+ *                 type: string
+ *                 description: Número de teléfono del usuario.
+ *               useremail:
+ *                 type: string
+ *                 description: Correo electrónico del usuario.
+ *               method:
+ *                 type: string
+ *                 description: Método de pago utilizado.
+ *               provider_id:
+ *                 type: integer
+ *                 description: ID del proveedor asociado al pago.
  *     responses:
- *       200:
- *         description: Pago recibido y transacción actualizada
- *       404:
- *         description: Transacción no encontrada
- *       500:
- *         description: Error del servidor
- */
-router.post('/webhook/payment-notification', payinController.paymentNotification);
-
-/**
- * @swagger
- * api/payin/transaction/{reference}:
- *   get:
- *     summary: Obtener los detalles de una transacción por referencia
- *     tags: [Payin]
- *     parameters:
- *       - in: path
- *         name: reference
- *         schema:
- *           type: string
- *           description: Referencia única de la transacción
- *         required: true
- *     responses:
- *       200:
- *         description: Detalles de la transacción obtenidos exitosamente
+ *       201:
+ *         description: Pago registrado y factura creada con éxito.
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Transaction'
- *       404:
- *         description: Transacción no encontrada
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 transaction:
+ *                   $ref: '#/components/schemas/Transaction'
+ *                 invoice:
+ *                   $ref: '#/components/schemas/Invoice'
  *       500:
- *         description: Error del servidor
+ *         description: Error al registrar el pago.
  */
-router.get('/transaction/:reference', payinController.getTransactionDetails);
+router.post('/payin', transactionController.createPayin);
+
+/**
+ * @swagger
+ * /api/payin/webhook/payment-confirmed:
+ *   post:
+ *     summary: Webhook para notificar que un pago ha sido confirmado por el proveedor.
+ *     tags: [Payin]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               reference:
+ *                 type: string
+ *                 description: La referencia de la transacción pagada.
+ *     responses:
+ *       200:
+ *         description: Estado de la transacción y factura actualizado a pagado.
+ *       404:
+ *         description: Transacción o factura no encontrada.
+ *       500:
+ *         description: Error al actualizar el estado de la transacción y factura.
+ */
+router.post('/webhook/payment-confirmed', transactionController.webhookPaymentConfirmed);
 
 module.exports = router;

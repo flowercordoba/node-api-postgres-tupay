@@ -1,44 +1,39 @@
 module.exports = (sequelize, DataTypes) => {
-    const Invoice = sequelize.define('Invoice', {
-      id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-      },
-      invoice_number: {
-        type: DataTypes.STRING,
-        unique: true,
-        allowNull: false,
-      },
-      transaction_id: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: 'transactions',
-          key: 'id',
-        },
-        allowNull: false,
-      },
-      amount: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: false,
-      },
-      status: {
-        type: DataTypes.ENUM('pending', 'paid', 'canceled'),
-        allowNull: false,
-      },
-      createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-      },
-    }, {
-      tableName: 'invoices',
-      timestamps: false, // Si no necesitas createdAt/updatedAt
-    });
-  
-    Invoice.associate = (models) => {
-      Invoice.belongsTo(models.Transaction, { foreignKey: 'transaction_id' });
-    };
-  
-    return Invoice;
+  const Invoice = sequelize.define('Invoice', {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    invoice_number: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    transaction_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    amount: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
+    status: {
+      type: DataTypes.ENUM('pending', 'paid', 'canceled'),
+      allowNull: false,
+      defaultValue: 'pending',
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+  }, {
+    tableName: 'invoices',
+    timestamps: false, // No es necesario createdAt o updatedAt en este caso
+  });
+
+  Invoice.associate = (models) => {
+    Invoice.belongsTo(models.Transaction, { foreignKey: 'transaction_id' });
   };
-  
+
+  return Invoice;
+};

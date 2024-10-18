@@ -14,7 +14,7 @@ const providerRoutes = require('./providerRoutes');
 const transactionRoutes = require('./transactionRoutes');
 const fundifyRoutes = require('./fundifyRoutes');
 const payinRoutes = require('./payinRoutes');
-const payoutRoutes = require('./payoutsRoutes');
+const payoutRoutes = require('./payoutRoutes');
 const interbancoRoutes = require('./interbancoRoutes');
 
 const swaggerRoutes = require('./swaggerRoutes');

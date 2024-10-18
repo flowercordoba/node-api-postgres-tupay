@@ -17,7 +17,7 @@ exports.getCompletedTransactions = async (req, res) => {
     const offset = parseInt(req.query.offset) || 0;
 
     try {
-        const transactions = await getTransactionsWithPagination({ status: 'completed' }, limit, offset);
+        const transactions = await getTransactionsWithPagination({ status: 'approved' }, limit, offset);
         res.status(200).json(transactions);
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener transacciones completadas', error });
@@ -120,10 +120,10 @@ exports.webhookTransactionPaid = async (req, res) => {
             return res.status(404).json({ message: 'Transacción no encontrada' });
         }
 
-        transaction.status = 'completed';
+        transaction.status = 'approved'; // O cualquier lógica que necesites para actualizar el estado
         await transaction.save();
 
-        res.status(200).json({ message: 'Estado de la transacción actualizado a completado' });
+        res.status(200).json({ message: 'Estado de la transacción actualizado a aprobado' });
     } catch (error) {
         res.status(500).json({ message: 'Error al actualizar el estado de la transacción', error });
     }
