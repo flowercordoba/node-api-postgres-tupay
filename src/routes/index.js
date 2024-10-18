@@ -14,6 +14,8 @@ const providerRoutes = require('./providerRoutes');
 const transactionRoutes = require('./transactionRoutes');
 const fundifyRoutes = require('./fundifyRoutes');
 const payinRoutes = require('./payinRoutes');
+// const interbancoRoutes = require('./interbancoRoutes');
+
 const swaggerRoutes = require('./swaggerRoutes');
 
 // Importar los middlewares de autenticación
@@ -44,6 +46,7 @@ sessionAuthenticatedRoutes.forEach(({ path, route }) => {
 // Rutas que requieren API Key
 router.use('/fundify', apiKeyAuth, fundifyRoutes);
 router.use('/payin', apiKeyAuth, payinRoutes);
+// router.use('/interbanco', apiKeyAuth, interbancoRoutes);
 
 // Ruta para Swagger
 router.use('/swagger', swaggerRoutes);
