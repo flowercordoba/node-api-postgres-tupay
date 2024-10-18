@@ -14,8 +14,6 @@ const transactionController = require('../controllers/transactionController');
  *         - status
  *         - user_id
  *         - provider_id
- *         - reference
- *         - expiration
  *         - currency
  *         - numdoc
  *         - username
@@ -26,6 +24,8 @@ const transactionController = require('../controllers/transactionController');
  *         - usernumaccount
  *         - typetransaction
  *         - method
+ *         - accountNumber
+ *         - bankAgreementNumber
  *       properties:
  *         id:
  *           type: integer
@@ -40,27 +40,20 @@ const transactionController = require('../controllers/transactionController');
  *         status:
  *           type: string
  *           enum: [pending, approved, rejected]
- *           description: Estado actual de la transacción
+ *           description: Estado de la transacción
  *         transaction_date:
  *           type: string
  *           format: date-time
- *           description: Fecha y hora en que se registró la transacción
+ *           description: Fecha y hora de la transacción
  *         user_id:
  *           type: integer
- *           description: ID del usuario asociado a la transacción
+ *           description: ID del usuario asociado
  *         provider_id:
  *           type: integer
- *           description: ID del proveedor asociado a la transacción
- *         reference:
- *           type: string
- *           description: Referencia de pago
- *         expiration:
- *           type: string
- *           format: date
- *           description: Fecha de expiración del enlace de pago
+ *           description: ID del proveedor
  *         currency:
  *           type: string
- *           description: Tipo de moneda
+ *           description: Moneda usada
  *         numdoc:
  *           type: string
  *           description: Número de identificación del usuario
@@ -69,7 +62,7 @@ const transactionController = require('../controllers/transactionController');
  *           description: Nombre del usuario
  *         userphone:
  *           type: string
- *           description: Número de celular del usuario
+ *           description: Número de teléfono del usuario
  *         useremail:
  *           type: string
  *           description: Correo electrónico del usuario
@@ -78,7 +71,7 @@ const transactionController = require('../controllers/transactionController');
  *           description: Nombre del banco del usuario
  *         usertypeaccount:
  *           type: string
- *           enum: [AHORRO, CORRIENTE]
+ *           enum: [savings, checking]
  *           description: Tipo de cuenta bancaria
  *         usernumaccount:
  *           type: string
@@ -89,11 +82,17 @@ const transactionController = require('../controllers/transactionController');
  *         method:
  *           type: string
  *           description: Método de pago utilizado
+ *         accountNumber:
+ *           type: string
+ *           description: Número de cuenta de pago
+ *         bankAgreementNumber:
+ *           type: string
+ *           description: Número de convenio bancario
  */
 
 /**
  * @swagger
- * /api/payouts:
+ * /api/payout/create:
  *   post:
  *     summary: Crear una nueva transacción de tipo payout
  *     tags: [Payout]
@@ -119,7 +118,7 @@ router.post('/create', transactionController.createPayout);
 
 /**
  * @swagger
- * /api/payouts:
+ * /api/payout/getAll:
  *   get:
  *     summary: Obtener la lista de transacciones de payout
  *     tags: [Payout]
@@ -135,11 +134,11 @@ router.post('/create', transactionController.createPayout);
  *       500:
  *         description: Error en el servidor al obtener la lista de transacciones
  */
-router.get('/payouts', transactionController.getAllTransactions);
+router.get('/getAll', transactionController.getAllTransactions);
 
 /**
  * @swagger
- * /api/payouts/{id}:
+ * /api/payout/{id}:
  *   get:
  *     summary: Obtener una transacción de payout por ID
  *     tags: [Payout]
@@ -162,11 +161,11 @@ router.get('/payouts', transactionController.getAllTransactions);
  *       500:
  *         description: Error en el servidor al obtener la transacción
  */
-router.get('/payouts/:id', transactionController.getTransactionById);
+router.get('/:id', transactionController.getTransactionById);
 
 /**
  * @swagger
- * /api/payouts/{id}:
+ * /api/payout/{id}:
  *   put:
  *     summary: Actualizar una transacción de payout por ID
  *     tags: [Payout]
@@ -197,11 +196,11 @@ router.get('/payouts/:id', transactionController.getTransactionById);
  *       500:
  *         description: Error en el servidor al actualizar la transacción
  */
-router.put('/payouts/:id', transactionController.updateTransaction);
+router.put('/:id', transactionController.updateTransaction);
 
 /**
  * @swagger
- * /api/payouts/{id}:
+ * /api/payout/{id}:
  *   delete:
  *     summary: Eliminar una transacción de payout por ID
  *     tags: [Payout]
@@ -220,6 +219,6 @@ router.put('/payouts/:id', transactionController.updateTransaction);
  *       500:
  *         description: Error en el servidor al eliminar la transacción
  */
-router.delete('/payouts/:id', transactionController.deleteTransaction);
+router.delete('/:id', transactionController.deleteTransaction);
 
 module.exports = router;
