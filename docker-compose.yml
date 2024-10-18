@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # Servicio de la API
+  api:
+    image: javalabs1/nodeapipostgrestupay:latest  # Imagen de Docker Hub
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgres://juniorrojas:123456@postgres:5432/my_database_tupay  # Conexión a la base de datos
+    ports:
+      - "3000:3000"  # Exponer el puerto de la API
+    depends_on:
+      - postgres  # Asegura que la base de datos se levante antes de la API
+    networks:
+      - my_network  # Conectar a la misma red
+
+  # Servicio de PostgreSQL
+  postgres:
+    image: postgres:13  # Usar PostgreSQL versión 13
+    environment:
+      - POSTGRES_DB=my_database_tupay
+      - POSTGRES_USER=juniorrojas
+      - POSTGRES_PASSWORD=123456
+    ports:
+      - "5432:5432"  # Exponer el puerto de PostgreSQL
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data  # Persistencia de datos
+    networks:
+      - my_network  # Conectar a la misma red
+
+  # Servicio de pgAdmin para gestionar PostgreSQL
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@mail.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - "5050:80"  # Exponer pgAdmin en el puerto 5050
+    networks:
+      - my_network  # Conectar a la misma red
+
+# Red compartida entre todos los servicios
+networks:
+  my_network:
+    driver: bridge

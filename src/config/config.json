@@ -1,23 +1,44 @@
 {
   "development": {
-    "username": "juniorrojas",
-    "password": "123456",
-    "database": "my_database_tupay",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "username": "louncher_owner",
+    "password": "wnpsmSxk80Pr",
+    "database": "louncher",
+    "host": "ep-lingering-darkness-a5fjaydb.us-east-2.aws.neon.tech",
+    "port": 5432,
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   },
   "test": {
-    "username": "juniorrojas",
-    "password": "123456",
-    "database": "my_database_tupay_test",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "username": "louncher_owner",
+    "password": "wnpsmSxk80Pr",
+    "database": "louncher",
+    "host": "ep-lingering-darkness-a5fjaydb.us-east-2.aws.neon.tech",
+    "port": 5432,
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   },
   "production": {
-    "username": "juniorrojas",
-    "password": "123456",
-    "database": "my_database_tupay_prod",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "username": "louncher_owner",
+    "password": "wnpsmSxk80Pr",
+    "database": "louncher",
+    "host": "ep-lingering-darkness-a5fjaydb.us-east-2.aws.neon.tech",
+    "port": 5432,
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }
