@@ -38,6 +38,7 @@ const sessionAuthenticatedRoutes = [
     { path: '/providers', route: providerRoutes },
     { path: '/transactions', route: transactionRoutes },
     { path: '/payout', route: payoutRoutes },
+    { path: '/payin', route: payinRoutes },
 ];
 
 // Aplicar el middleware a todas las rutas que requieren autenticación

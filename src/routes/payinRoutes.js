@@ -59,7 +59,7 @@ const transactionController = require('../controllers/payinController');
  *       500:
  *         description: Error al registrar el pago.
  */
-router.post('/payin', transactionController.createPayin);
+router.post('/create', transactionController.createPayin);
 
 /**
  * @swagger

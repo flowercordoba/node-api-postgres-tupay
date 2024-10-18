@@ -14,7 +14,9 @@ exports.createPayin = async (req, res) => {
         userphone,
         useremail,
         method,
-        provider_id
+        provider_id,
+        user_id,
+        usertypeaccount
     } = req.body;
 
     try {
@@ -29,6 +31,8 @@ exports.createPayin = async (req, res) => {
             userphone,
             useremail,
             method,
+            usertypeaccount,
+            user_id, // Asignar el ID del usuario
             provider_id, // Asignar el ID del proveedor
             status: 'pending' // Iniciar como pendiente
         });
@@ -53,14 +57,23 @@ exports.createPayin = async (req, res) => {
 
 // Webhook para notificar que un pago ha sido confirmado por el proveedor
 exports.webhookPaymentConfirmed = async (req, res) => {
-    const { reference } = req.body;
-
+    const { id } = req.body;
+    console.log('Webhook received:', id);
     try {
-        const transaction = await Transaction.findOne({ where: { reference } });
-        const invoice = await Invoice.findOne({ where: { transaction_id: transaction.id } });
+        // Buscar la transacción por referencia
+        const transaction = await Transaction.findOne({ where: { id } });
+        console.log('Transaction found:', transaction);
+        // Verificar si la transacción existe
+        if (!transaction) {
+            return res.status(404).json({ error: 'Transacción no encontrada' });
+        }
 
-        if (!transaction || !invoice) {
-            return res.status(404).json({ error: 'Transacción o factura no encontrada' });
+        // Buscar la factura relacionada a la transacción
+        const invoice = await Invoice.findOne({ where: { id} });
+
+        // Verificar si la factura existe
+        if (!invoice) {
+            return res.status(404).json({ error: 'Factura no encontrada' });
         }
 
         // Actualizar el estado de la transacción y la factura a 'paid'
@@ -74,3 +87,4 @@ exports.webhookPaymentConfirmed = async (req, res) => {
         res.status(500).json({ error: 'Error al actualizar el estado de la transacción y factura', details: error.message });
     }
 };
+

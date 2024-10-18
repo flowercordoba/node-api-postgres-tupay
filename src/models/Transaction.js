@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     status: {
-      type: DataTypes.ENUM('pending', 'approved', 'rejected'),
+      type: DataTypes.ENUM('pending', 'approved', 'rejected', 'paid'),
       allowNull: false,
     },
     expiration: {
@@ -73,7 +73,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(20), // Ajusta según lo necesario
       allowNull: false,
     },
-
     bankAgreementNumber: {
       type: DataTypes.STRING(20), // Ajusta según lo necesario
       allowNull: true,
@@ -82,10 +81,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(20),
       allowNull: true,  // Permitir nulos
     },
-    bankAgreementNumber: {
-      type: DataTypes.STRING(20),
-      allowNull: true,  // Permitir nulos
-    },
+
     paymentReceipt: {
       type: DataTypes.STRING(255), // Ajusta según lo necesario
       allowNull: true,
