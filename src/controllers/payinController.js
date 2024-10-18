@@ -1,86 +1,90 @@
+const db = require('../models');
 const { Op } = require('sequelize');
-const Transaction = require('../models/Transaction');
-const Provider = require('../models/Provider');
+const Transaction = db.Transaction;
+const Invoice = db.Invoice;
 
-// Mostrar los proveedores disponibles para una transacción por referencia
-exports.getProvidersForReference = async (req, res) => {
-    const { reference } = req.params;
-
-    try {
-        // Verificar si la transacción existe
-        const transaction = await Transaction.findOne({ where: { reference } });
-        if (!transaction) {
-            return res.status(404).json({ message: 'Transacción no encontrada' });
-        }
-
-        // Obtener los proveedores disponibles
-        const providers = await Provider.findAll();
-        res.status(200).json({ providers });
-    } catch (error) {
-        res.status(500).json({ message: 'Error al obtener proveedores', error });
-    }
-};
-
-// Enviar la referencia de pago al proveedor seleccionado
-exports.sendReferenceToProvider = async (req, res) => {
-    const { reference, providerId } = req.body;
+// Registrar el pago (payin)
+exports.createPayin = async (req, res) => {
+    const {
+        reference,
+        amount,
+        currency,
+        numdoc,
+        username,
+        userphone,
+        useremail,
+        method,
+        provider_id,
+        user_id,
+        usertypeaccount
+    } = req.body;
 
     try {
-        // Verificar si la transacción existe
-        const transaction = await Transaction.findOne({ where: { reference } });
-        if (!transaction) {
-            return res.status(404).json({ message: 'Transacción no encontrada' });
-        }
+        // Crear la transacción de payin
+        const transaction = await Transaction.create({
+            transaction_type: 'payin',
+            reference,
+            amount,
+            currency,
+            numdoc,
+            username,
+            userphone,
+            useremail,
+            method,
+            usertypeaccount,
+            user_id, // Asignar el ID del usuario
+            provider_id, // Asignar el ID del proveedor
+            status: 'pending' // Iniciar como pendiente
+        });
 
-        // Verificar si el proveedor existe
-        const provider = await Provider.findOne({ where: { id: providerId } });
-        if (!provider) {
-            return res.status(404).json({ message: 'Proveedor no encontrado' });
-        }
+        // Crear la factura asociada
+        const invoice = await Invoice.create({
+            invoice_number: `INV-${transaction.id}`, // Generar el número de factura
+            transaction_id: transaction.id,
+            amount: transaction.amount,
+            status: 'pending' // Inicialmente pendiente
+        });
 
-        // Aquí redirigirías al usuario a la web del proveedor con su referencia y userId
-        res.status(200).json({
-            message: 'Proveedor seleccionado correctamente',
-            redirectUrl: `${provider.paymentUrl}?userId=${transaction.user_id}&reference=${transaction.reference}`
+        res.status(201).json({
+            message: 'Pago registrado y factura creada con éxito',
+            transaction,
+            invoice
         });
     } catch (error) {
-        res.status(500).json({ message: 'Error al seleccionar proveedor', error });
+        res.status(500).json({ error: 'Error al registrar el pago', details: error.message });
     }
 };
 
-// Webhook donde el proveedor notifica que el usuario pagó
-exports.paymentNotification = async (req, res) => {
-    const { reference } = req.body;
-
+// Webhook para notificar que un pago ha sido confirmado por el proveedor
+exports.webhookPaymentConfirmed = async (req, res) => {
+    const { id } = req.body;
+    console.log('Webhook received:', id);
     try {
+        // Buscar la transacción por referencia
+        const transaction = await Transaction.findOne({ where: { id } });
+        console.log('Transaction found:', transaction);
         // Verificar si la transacción existe
-        const transaction = await Transaction.findOne({ where: { reference } });
         if (!transaction) {
-            return res.status(404).json({ message: 'Transacción no encontrada' });
+            return res.status(404).json({ error: 'Transacción no encontrada' });
         }
 
-        // Actualizar el estado de la transacción a "completed"
-        transaction.status = 'completed';
+        // Buscar la factura relacionada a la transacción
+        const invoice = await Invoice.findOne({ where: { id} });
+
+        // Verificar si la factura existe
+        if (!invoice) {
+            return res.status(404).json({ error: 'Factura no encontrada' });
+        }
+
+        // Actualizar el estado de la transacción y la factura a 'paid'
+        transaction.status = 'paid';
+        invoice.status = 'paid';
         await transaction.save();
+        await invoice.save();
 
-        res.status(200).json({ message: 'Pago recibido y transacción actualizada' });
+        res.status(200).json({ message: 'Estado de la transacción y factura actualizado a pagado' });
     } catch (error) {
-        res.status(500).json({ message: 'Error al actualizar el estado de la transacción', error });
+        res.status(500).json({ error: 'Error al actualizar el estado de la transacción y factura', details: error.message });
     }
 };
 
-// Permitir al proveedor consultar los detalles de una transacción por referencia
-exports.getTransactionDetails = async (req, res) => {
-    const { reference } = req.params;
-
-    try {
-        const transaction = await Transaction.findOne({ where: { reference }, include: ['User', 'Provider'] });
-        if (!transaction) {
-            return res.status(404).json({ message: 'Transacción no encontrada' });
-        }
-
-        res.status(200).json(transaction);
-    } catch (error) {
-        res.status(500).json({ message: 'Error al obtener los detalles de la transacción', error });
-    }
-};

@@ -11,6 +11,7 @@ const providerController = require('../controllers/providerController');
  *       required:
  *         - name
  *         - api_key
+ *         - country
  *       properties:
  *         id:
  *           type: integer
@@ -27,6 +28,9 @@ const providerController = require('../controllers/providerController');
  *         is_active:
  *           type: boolean
  *           description: Estado del proveedor
+ *         country:
+ *           type: string
+ *           description: País donde el proveedor está disponible
  */
 
 /**
@@ -82,10 +86,10 @@ router.get('/providers', providerController.getAllProviders);
  *     parameters:
  *       - in: path
  *         name: id
- *         schema:
- *           type: integer
  *         required: true
  *         description: ID del proveedor
+ *         schema:
+ *           type: integer
  *     responses:
  *       200:
  *         description: Proveedor encontrado
@@ -109,10 +113,10 @@ router.get('/providers/:id', providerController.getProviderById);
  *     parameters:
  *       - in: path
  *         name: id
- *         schema:
- *           type: integer
  *         required: true
  *         description: ID del proveedor
+ *         schema:
+ *           type: integer
  *     requestBody:
  *       required: true
  *       content:
@@ -142,10 +146,10 @@ router.put('/providers/:id', providerController.updateProvider);
  *     parameters:
  *       - in: path
  *         name: id
- *         schema:
- *           type: integer
  *         required: true
  *         description: ID del proveedor
+ *         schema:
+ *           type: integer
  *     responses:
  *       204:
  *         description: Proveedor eliminado con éxito
@@ -155,5 +159,39 @@ router.put('/providers/:id', providerController.updateProvider);
  *         description: Error en el servidor
  */
 router.delete('/providers/:id', providerController.deleteProvider);
+
+
+/**
+ * @swagger
+ * /api/providers/country/{country}:
+ *   get:
+ *     summary: Obtener proveedores según el código de país
+ *     tags: [Provider]
+ *     parameters:
+ *       - in: path
+ *         name: country
+ *         required: true
+ *         description: Código de país ISO 3166-1 alpha-2
+ *         schema:
+ *           type: string
+ *           example: CO
+ *     responses:
+ *       200:
+ *         description: Lista de proveedores encontrados
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Provider'
+ *       400:
+ *         description: El código de país es inválido
+ *       404:
+ *         description: No se encontraron proveedores para este país
+ *       500:
+ *         description: Error en el servidor
+ */
+router.get('/providers/country/:country', providerController.getProvidersByCountry);
+
 
 module.exports = router;

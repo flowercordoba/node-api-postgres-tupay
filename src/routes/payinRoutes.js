@@ -1,83 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const payinController = require('../controllers/payinController');
+const transactionController = require('../controllers/payinController');
 
 /**
  * @swagger
- * components:
- *   schemas:
- *     Provider:
- *       type: object
- *       properties:
- *         id:
- *           type: integer
- *           description: ID del proveedor
- *         name:
- *           type: string
- *           description: Nombre del proveedor
- *         paymentUrl:
- *           type: string
- *           description: URL de pago del proveedor
- * 
- *     Transaction:
- *       type: object
- *       properties:
- *         id:
- *           type: integer
- *           description: ID de la transacción
- *         user_id:
- *           type: integer
- *           description: ID del usuario asociado a la transacción
- *         reference:
- *           type: string
- *           description: Referencia única de la transacción
- *         amount:
- *           type: number
- *           format: float
- *           description: Monto de la transacción
- *         currency:
- *           type: string
- *           description: Moneda utilizada en la transacción
- *         status:
- *           type: string
- *           enum: [pending, approved, rejected]
- *           description: Estado actual de la transacción
- */
-
-/**
- * @swagger
- * api/payin/providers/{reference}:
- *   get:
- *     summary: Obtener los proveedores disponibles para una transacción
- *     tags: [Payin]
- *     parameters:
- *       - in: path
- *         name: reference
- *         schema:
- *           type: string
- *           description: La referencia única de la transacción
- *         required: true
- *     responses:
- *       200:
- *         description: Proveedores disponibles obtenidos exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Provider'
- *       404:
- *         description: Transacción no encontrada
- *       500:
- *         description: Error del servidor
- */
-router.get('/providers/:reference', payinController.getProvidersForReference);
-
-/**
- * @swagger
- * api/payin/choose-provider:
+ * /api/payin:
  *   post:
- *     summary: Seleccionar un proveedor y enviar la referencia de pago
+ *     summary: Registrar un pago (payin)
  *     tags: [Payin]
  *     requestBody:
  *       required: true
@@ -88,13 +17,34 @@ router.get('/providers/:reference', payinController.getProvidersForReference);
  *             properties:
  *               reference:
  *                 type: string
- *                 description: Referencia única de la transacción
- *               providerId:
+ *                 description: La referencia única de la transacción.
+ *               amount:
+ *                 type: number
+ *                 description: Monto del pago.
+ *               currency:
+ *                 type: string
+ *                 description: Tipo de moneda.
+ *               numdoc:
+ *                 type: string
+ *                 description: Número de identificación del usuario.
+ *               username:
+ *                 type: string
+ *                 description: Nombre del usuario.
+ *               userphone:
+ *                 type: string
+ *                 description: Número de teléfono del usuario.
+ *               useremail:
+ *                 type: string
+ *                 description: Correo electrónico del usuario.
+ *               method:
+ *                 type: string
+ *                 description: Método de pago utilizado.
+ *               provider_id:
  *                 type: integer
- *                 description: ID del proveedor seleccionado
+ *                 description: ID del proveedor asociado al pago.
  *     responses:
- *       200:
- *         description: Proveedor seleccionado correctamente y redirigido
+ *       201:
+ *         description: Pago registrado y factura creada con éxito.
  *         content:
  *           application/json:
  *             schema:
@@ -102,22 +52,20 @@ router.get('/providers/:reference', payinController.getProvidersForReference);
  *               properties:
  *                 message:
  *                   type: string
- *                   description: Mensaje de confirmación
- *                 redirectUrl:
- *                   type: string
- *                   description: URL de pago a la que se redirige al usuario
- *       404:
- *         description: Transacción o proveedor no encontrado
+ *                 transaction:
+ *                   $ref: '#/components/schemas/Transaction'
+ *                 invoice:
+ *                   $ref: '#/components/schemas/Invoice'
  *       500:
- *         description: Error del servidor
+ *         description: Error al registrar el pago.
  */
-router.post('/choose-provider', payinController.sendReferenceToProvider);
+router.post('/create', transactionController.createPayin);
 
 /**
  * @swagger
- * api/payin/webhook/payment-notification:
+ * /api/payin/webhook/payment-confirmed:
  *   post:
- *     summary: Webhook para notificar que un pago fue realizado exitosamente
+ *     summary: Webhook para notificar que un pago ha sido confirmado por el proveedor.
  *     tags: [Payin]
  *     requestBody:
  *       required: true
@@ -128,42 +76,15 @@ router.post('/choose-provider', payinController.sendReferenceToProvider);
  *             properties:
  *               reference:
  *                 type: string
- *                 description: Referencia única de la transacción
+ *                 description: La referencia de la transacción pagada.
  *     responses:
  *       200:
- *         description: Pago recibido y transacción actualizada
+ *         description: Estado de la transacción y factura actualizado a pagado.
  *       404:
- *         description: Transacción no encontrada
+ *         description: Transacción o factura no encontrada.
  *       500:
- *         description: Error del servidor
+ *         description: Error al actualizar el estado de la transacción y factura.
  */
-router.post('/webhook/payment-notification', payinController.paymentNotification);
-
-/**
- * @swagger
- * api/payin/transaction/{reference}:
- *   get:
- *     summary: Obtener los detalles de una transacción por referencia
- *     tags: [Payin]
- *     parameters:
- *       - in: path
- *         name: reference
- *         schema:
- *           type: string
- *           description: Referencia única de la transacción
- *         required: true
- *     responses:
- *       200:
- *         description: Detalles de la transacción obtenidos exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Transaction'
- *       404:
- *         description: Transacción no encontrada
- *       500:
- *         description: Error del servidor
- */
-router.get('/transaction/:reference', payinController.getTransactionDetails);
+router.post('/webhook/payment-confirmed', transactionController.webhookPaymentConfirmed);
 
 module.exports = router;

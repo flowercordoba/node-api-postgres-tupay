@@ -14,8 +14,7 @@ const fundifyController = require('../controllers/fundifyController');
  *         type: integer
  *         default: 20
  *       description: 
- *         El número máximo de resultados por página. 
- *         Por defecto, es 20.
+ *         El número máximo de resultados por página. Por defecto, es 20.
  *     offsetParam:
  *       in: query
  *       name: offset
@@ -24,8 +23,7 @@ const fundifyController = require('../controllers/fundifyController');
  *         type: integer
  *         default: 0
  *       description: 
- *         El desplazamiento para la paginación. 
- *         Indica el número de elementos a omitir; por defecto, es 0.
+ *         El desplazamiento para la paginación. Indica el número de elementos a omitir; por defecto, es 0.
  *
  *   schemas:
  *     Transaction:
@@ -37,6 +35,18 @@ const fundifyController = require('../controllers/fundifyController');
  *         - status
  *         - user_id
  *         - provider_id
+ *         - reference
+ *         - currency
+ *         - numdoc
+ *         - username
+ *         - userphone
+ *         - useremail
+ *         - userbank
+ *         - usernumaccount
+ *         - typetransaction
+ *         - method
+ *         - accountNumber
+ *         - bankAgreementNumber
  *       properties:
  *         id:
  *           type: integer
@@ -63,7 +73,49 @@ const fundifyController = require('../controllers/fundifyController');
  *         provider_id:
  *           type: integer
  *           description: ID del proveedor relacionado.
- *
+ *         reference:
+ *           type: string
+ *           description: Referencia única de la transacción.
+ *         currency:
+ *           type: string
+ *           description: Código de moneda de la transacción.
+ *         numdoc:
+ *           type: string
+ *           description: Número de identificación del usuario.
+ *         username:
+ *           type: string
+ *           description: Nombre del usuario.
+ *         userphone:
+ *           type: string
+ *           description: Número de teléfono del usuario.
+ *         useremail:
+ *           type: string
+ *           description: Correo electrónico del usuario.
+ *         userbank:
+ *           type: string
+ *           description: Nombre del banco del usuario.
+ *         usernumaccount:
+ *           type: string
+ *           description: Número de cuenta del usuario.
+ *         typetransaction:
+ *           type: string
+ *           description: Tipo de transacción (por ejemplo, depósito, retiro).
+ *         method:
+ *           type: string
+ *           description: Método de pago utilizado.
+ *         accountNumber:
+ *           type: string
+ *           description: Número de cuenta utilizado para la transacción.
+ *         bankAgreementNumber:
+ *           type: string
+ *           description: Número de acuerdo bancario asociado.
+ *         paymentReceipt:
+ *           type: string
+ *           description: Recibo de pago, si aplica.
+ */
+
+/**
+ * @swagger
  * /api/fundify/transactions/completed:
  *   get:
  *     summary: Obtener todas las transacciones completadas con paginación.

@@ -1,5 +1,8 @@
 # Tupay API
 
+![Diagrama de Flujo para Payout](src/assets/img/payout-flow-diagram.jpeg)
+
+
 ## Descripción
 
 Tupay API es una plataforma backend que permite la gestión de usuarios, transacciones, proveedores y notificaciones. La API está documentada utilizando **Swagger** y utiliza **JWT** para la autenticación de usuarios. Además, permite el proceso de `payin` y `payout`, gestionando transacciones con proveedores externos mediante webhooks.

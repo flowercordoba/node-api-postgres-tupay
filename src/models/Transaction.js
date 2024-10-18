@@ -22,12 +22,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     status: {
-      type: DataTypes.ENUM('pending', 'approved', 'rejected'),
+      type: DataTypes.ENUM('pending', 'approved', 'rejected', 'paid'),
       allowNull: false,
     },
-    expiration:{
+    expiration: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     transaction_date: {
       type: DataTypes.DATE,
@@ -73,14 +73,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(20), // Ajusta según lo necesario
       allowNull: false,
     },
-    accountNumber: {
-      type: DataTypes.STRING(20), // Ajusta según lo necesario
-      allowNull: false,
-    },
     bankAgreementNumber: {
       type: DataTypes.STRING(20), // Ajusta según lo necesario
-      allowNull: false,
+      allowNull: true,
     },
+    accountNumber: {
+      type: DataTypes.STRING(20),
+      allowNull: true,  // Permitir nulos
+    },
+
     paymentReceipt: {
       type: DataTypes.STRING(255), // Ajusta según lo necesario
       allowNull: true,
@@ -92,7 +93,15 @@ module.exports = (sequelize, DataTypes) => {
     provider_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    }
+    },
+    issueDate: {
+      type: DataTypes.DATE,
+      allowNull: true, // Permitir nulos
+    },
+    dueDate: {
+      type: DataTypes.DATE,
+      allowNull: true, // Permitir nulos
+    },
   }, {
     tableName: 'transactions',
     timestamps: true, // Esto activará automáticamente createdAt y updatedAt
@@ -101,6 +110,7 @@ module.exports = (sequelize, DataTypes) => {
   Transaction.associate = (models) => {
     Transaction.belongsTo(models.User, { foreignKey: 'user_id' });
     Transaction.belongsTo(models.Provider, { foreignKey: 'provider_id' });
+    Transaction.hasOne(models.Invoice, { foreignKey: 'transaction_id' });
   };
 
   return Transaction;
