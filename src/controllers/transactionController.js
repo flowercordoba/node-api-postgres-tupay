@@ -33,7 +33,7 @@ function generateUniqueReference() {
 }
 
 
-
+/// Crear una nueva Transacción
 exports.createPayout = [
   validateTransactionFields, // Middleware para validar campos
   async (req, res) => {
