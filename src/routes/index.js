@@ -14,7 +14,8 @@ const providerRoutes = require('./providerRoutes');
 const transactionRoutes = require('./transactionRoutes');
 const fundifyRoutes = require('./fundifyRoutes');
 const payinRoutes = require('./payinRoutes');
-// const interbancoRoutes = require('./interbancoRoutes');
+const payoutRoutes = require('./payoutsRoutes');
+const interbancoRoutes = require('./interbancoRoutes');
 
 const swaggerRoutes = require('./swaggerRoutes');
 
@@ -36,6 +37,7 @@ const sessionAuthenticatedRoutes = [
     { path: '/pending-references', route: pendingReferenceRoutes },
     { path: '/providers', route: providerRoutes },
     { path: '/transactions', route: transactionRoutes },
+    { path: '/payout', route: payoutRoutes },
 ];
 
 // Aplicar el middleware a todas las rutas que requieren autenticación
@@ -46,7 +48,7 @@ sessionAuthenticatedRoutes.forEach(({ path, route }) => {
 // Rutas que requieren API Key
 router.use('/fundify', apiKeyAuth, fundifyRoutes);
 router.use('/payin', apiKeyAuth, payinRoutes);
-// router.use('/interbanco', apiKeyAuth, interbancoRoutes);
+router.use('/interbanco', apiKeyAuth, interbancoRoutes);
 
 // Ruta para Swagger
 router.use('/swagger', swaggerRoutes);

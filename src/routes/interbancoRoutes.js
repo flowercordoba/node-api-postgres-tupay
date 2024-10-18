@@ -1,8 +1,7 @@
-// routes/interbancoRoutes.js
-
 const express = require('express');
 const router = express.Router();
 const InterbancoController = require('../controllers/InterbancoController');
+const transactionController = require('../controllers/transactionController');
 
 /**
  * @swagger
@@ -51,7 +50,7 @@ router.get('/:referencia', InterbancoController.getProvidersForReference);
  * @swagger
  * /api/v2/changeinterbanco:
  *   post:
- *     summary: Aprobar referencia
+ *     summary: Procesar una transacción y generar un número de factura
  *     tags: [Interbanco]
  *     requestBody:
  *       required: true
@@ -60,17 +59,27 @@ router.get('/:referencia', InterbancoController.getProvidersForReference);
  *           schema:
  *             type: object
  *             properties:
- *               ref:
- *                 type: string
- *                 description: La referencia de la transacción a aprobar
+ *               transactionId:
+ *                 type: integer
+ *                 description: ID de la transacción a procesar
  *     responses:
  *       200:
- *         description: Referencia aprobada exitosamente
+ *         description: Transacción procesada exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje de éxito
+ *                 transaction:
+ *                   $ref: '#/components/schemas/Transaction'
  *       404:
  *         description: Transacción no encontrada
  *       500:
- *         description: Error del servidor
+ *         description: Error en el servidor al procesar la transacción
  */
-router.post('/changeinterbanco', InterbancoController.approveReference);
+router.post('/changeinterbanco', transactionController.processTransaction);
 
 module.exports = router;

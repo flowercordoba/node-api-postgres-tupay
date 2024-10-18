@@ -6,7 +6,7 @@ const transactionController = require('../controllers/transactionController');
  * @swagger
  * components:
  *   schemas:
- *     Transaction:
+ *     Payout:
  *       type: object
  *       required:
  *         - transaction_type
@@ -35,8 +35,7 @@ const transactionController = require('../controllers/transactionController');
  *           enum: [payin, payout]
  *           description: Tipo de transacción
  *         amount:
- *           type: number
- *           format: decimal
+ *           type: string
  *           description: Monto total de la transacción
  *         status:
  *           type: string
@@ -94,103 +93,103 @@ const transactionController = require('../controllers/transactionController');
 
 /**
  * @swagger
- * /api/transactions:
+ * /api/payouts:
  *   post:
- *     summary: Crear una nueva transacción
- *     tags: [Transaction]
+ *     summary: Crear una nueva transacción de tipo payout
+ *     tags: [Payout]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Transaction'
+ *             $ref: '#/components/schemas/Payout'
  *     responses:
  *       201:
- *         description: Transacción creada con éxito
+ *         description: Transacción de payout creada con éxito
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Transaction'
+ *               $ref: '#/components/schemas/Payout'
  *       400:
  *         description: Solicitud inválida, faltan campos requeridos
  *       500:
  *         description: Error en el servidor al crear la transacción
  */
-router.post('/transactions', transactionController.createTransaction);
+router.post('/payouts', transactionController.createPayout);
 
 /**
  * @swagger
- * /api/transactions:
+ * /api/payouts:
  *   get:
- *     summary: Obtener la lista de transacciones
- *     tags: [Transaction]
+ *     summary: Obtener la lista de transacciones de payout
+ *     tags: [Payout]
  *     responses:
  *       200:
- *         description: Lista de transacciones obtenida con éxito
+ *         description: Lista de transacciones de payout obtenida con éxito
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Transaction'
+ *                 $ref: '#/components/schemas/Payout'
  *       500:
  *         description: Error en el servidor al obtener la lista de transacciones
  */
-router.get('/transactions', transactionController.getAllTransactions);
+router.get('/payouts', transactionController.getAllTransactions);
 
 /**
  * @swagger
- * /api/transactions/{id}:
+ * /api/payouts/{id}:
  *   get:
- *     summary: Obtener una transacción por ID
- *     tags: [Transaction]
+ *     summary: Obtener una transacción de payout por ID
+ *     tags: [Payout]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID de la transacción que se desea obtener
+ *         description: ID de la transacción de payout que se desea obtener
  *     responses:
  *       200:
- *         description: Transacción encontrada y devuelta con éxito
+ *         description: Transacción de payout encontrada y devuelta con éxito
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Transaction'
+ *               $ref: '#/components/schemas/Payout'
  *       404:
  *         description: Transacción no encontrada
  *       500:
  *         description: Error en el servidor al obtener la transacción
  */
-router.get('/transactions/:id', transactionController.getTransactionById);
+router.get('/payouts/:id', transactionController.getTransactionById);
 
 /**
  * @swagger
- * /api/transactions/{id}:
+ * /api/payouts/{id}:
  *   put:
- *     summary: Actualizar una transacción por ID
- *     tags: [Transaction]
+ *     summary: Actualizar una transacción de payout por ID
+ *     tags: [Payout]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID de la transacción que se desea actualizar
+ *         description: ID de la transacción de payout que se desea actualizar
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Transaction'
+ *             $ref: '#/components/schemas/Payout'
  *     responses:
  *       200:
- *         description: Transacción actualizada con éxito
+ *         description: Transacción de payout actualizada con éxito
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Transaction'
+ *               $ref: '#/components/schemas/Payout'
  *       400:
  *         description: Solicitud inválida, faltan campos requeridos
  *       404:
@@ -198,65 +197,29 @@ router.get('/transactions/:id', transactionController.getTransactionById);
  *       500:
  *         description: Error en el servidor al actualizar la transacción
  */
-router.put('/transactions/:id', transactionController.updateTransaction);
+router.put('/payouts/:id', transactionController.updateTransaction);
 
 /**
  * @swagger
- * /api/transactions/{id}:
+ * /api/payouts/{id}:
  *   delete:
- *     summary: Eliminar una transacción por ID
- *     tags: [Transaction]
+ *     summary: Eliminar una transacción de payout por ID
+ *     tags: [Payout]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: integer
  *         required: true
- *         description: ID de la transacción que se desea eliminar
+ *         description: ID de la transacción de payout que se desea eliminar
  *     responses:
  *       204:
- *         description: Transacción eliminada con éxito
+ *         description: Transacción de payout eliminada con éxito
  *       404:
  *         description: Transacción no encontrada
  *       500:
  *         description: Error en el servidor al eliminar la transacción
  */
-router.delete('/transactions/:id', transactionController.deleteTransaction);
-
-/**
- * @swagger
- * /api/transactions/process:
- *   post:
- *     summary: Procesar una transacción y generar un número de factura
- *     tags: [Transaction]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               transactionId:
- *                 type: integer
- *                 description: ID de la transacción a procesar
- *     responses:
- *       200:
- *         description: Transacción procesada exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   description: Mensaje de éxito
- *                 transaction:
- *                   $ref: '#/components/schemas/Transaction'
- *       404:
- *         description: Transacción no encontrada
- *       500:
- *         description: Error en el servidor al procesar la transacción
- */
-router.post('/transactions/process', transactionController.processTransaction);
+router.delete('/payouts/:id', transactionController.deleteTransaction);
 
 module.exports = router;
