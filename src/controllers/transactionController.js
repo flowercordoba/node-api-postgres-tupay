@@ -4,7 +4,7 @@ const Invoice = db.Invoice;
 
 // Validar campos requeridos
 const validateTransactionFields = (req, res, next) => {
-  const requiredFields = ['transaction_type', 'amount', 'status', 'transaction_date', 'user_id', 'provider_id'];
+  const requiredFields = ['transaction_type', 'amount', 'status', 'user_id', 'provider_id'];
   const missingFields = requiredFields.filter(field => !req.body[field]);
 
   if (missingFields.length) {
@@ -27,44 +27,63 @@ const generateInvoiceNumber = async () => {
   return `INV-${invoiceId}`;
 };
 
+// Función para generar una referencia única (puedes personalizar el método)
+function generateUniqueReference() {
+  return require('crypto').randomBytes(16).toString('hex'); // Generar un código hexadecimal de 32 caracteres
+}
 
 
-// Crear una nueva transacción de tipo payout
+
 exports.createPayout = [
-  validateTransactionFields,
+  validateTransactionFields, // Middleware para validar campos
   async (req, res) => {
     try {
-      const { transaction_type, amount, status, transaction_date, user_id, provider_id, method } = req.body;
+      const {
+        amount,
+        numdoc,
+        username,
+        userphone,
+        useremail,
+        userbank,
+        usertypeaccount,
+        usernumaccount,
+        typetransaction,
+        method,
+        user_id,
+        provider_id,
+        currency,
+        accountNumber,
+        bankAgreementNumber
+      } = req.body;
 
-      // Verificar que el tipo de transacción sea payout
-      if (transaction_type !== 'payout') {
-        return res.status(400).json({ error: 'El tipo de transacción debe ser payout' });
-      }
+      // Generar referencia única y fecha de expiración
+      const reference = generateUniqueReference();
+      const expiration = new Date(); // Generar la fecha de expiración (puedes personalizar esta lógica)
+      expiration.setDate(expiration.getDate() + 30); // Ejemplo: 30 días después de la fecha actual
 
       // Crear la transacción
       const transaction = await Transaction.create({
-        transaction_type,
+        transaction_type: 'payout', // Siempre será payout
         amount,
-        status,
-        transaction_date,
+        status: 'pending', // Estado inicial
         user_id,
         provider_id,
+        reference,
+        expiration,
+        currency,
+        numdoc,
+        username,
+        userphone,
+        useremail,
+        userbank,
+        usertypeaccount,
+        usernumaccount,
+        typetransaction,
+        accountNumber,
+        bankAgreementNumber,
+        method,
+        transaction_date: new Date(), // Fecha actual de la transacción
       });
-
-      // Solo crear la factura si se selecciona un método de pago específico
-      if (method === 'invoice') {
-        const invoice_number = await generateInvoiceNumber();
-
-        const invoice = await Invoice.create({
-          invoice_number,
-          transaction_id: transaction.id,
-          amount: transaction.amount,
-          status: 'pending',
-        });
-
-        // Agregar la factura a la respuesta si es necesario
-        transaction.invoice = invoice;
-      }
 
       res.status(201).json(transaction);
     } catch (error) {
@@ -72,6 +91,12 @@ exports.createPayout = [
     }
   }
 ];
+
+// Función para generar una referencia única (puedes personalizar el método)
+function generateUniqueReference() {
+  return require('crypto').randomBytes(16).toString('hex'); // Generar un código hexadecimal de 32 caracteres
+}
+
 
 
 // Crear una nueva Transacción

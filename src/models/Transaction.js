@@ -73,13 +73,18 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(20), // Ajusta según lo necesario
       allowNull: false,
     },
-    accountNumber: {
-      type: DataTypes.STRING(20), // Ajusta según lo necesario
-      allowNull: false,
-    },
+
     bankAgreementNumber: {
       type: DataTypes.STRING(20), // Ajusta según lo necesario
-      allowNull: false,
+      allowNull: true,
+    },
+    accountNumber: {
+      type: DataTypes.STRING(20),
+      allowNull: true,  // Permitir nulos
+    },
+    bankAgreementNumber: {
+      type: DataTypes.STRING(20),
+      allowNull: true,  // Permitir nulos
     },
     paymentReceipt: {
       type: DataTypes.STRING(255), // Ajusta según lo necesario

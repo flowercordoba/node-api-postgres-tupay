@@ -115,7 +115,7 @@ const transactionController = require('../controllers/transactionController');
  *       500:
  *         description: Error en el servidor al crear la transacción
  */
-router.post('/payouts', transactionController.createPayout);
+router.post('/create', transactionController.createPayout);
 
 /**
  * @swagger
