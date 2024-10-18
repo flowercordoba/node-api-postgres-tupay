@@ -6,6 +6,7 @@
     "start": "node src/app.js",
     "start:dev": "nodemon src/app.js",
     "seeder": "npx sequelize-cli db:seed:all --config src/config/config.json --seeders-path src/seeders",
+    "seeder:undo":"npx sequelize-cli db:seed:undo:all -config src/config/config.json --seeders-path src/seeders",
     "generateSwagger": "node src/script/generateSwagger.js"
   },
   "keywords": [],
