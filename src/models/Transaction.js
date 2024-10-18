@@ -92,7 +92,15 @@ module.exports = (sequelize, DataTypes) => {
     provider_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    }
+    },
+    issueDate: {
+      type: DataTypes.DATE,
+      allowNull: true, // Permitir nulos
+    },
+    dueDate: {
+      type: DataTypes.DATE,
+      allowNull: true, // Permitir nulos
+    },
   }, {
     tableName: 'transactions',
     timestamps: true, // Esto activará automáticamente createdAt y updatedAt

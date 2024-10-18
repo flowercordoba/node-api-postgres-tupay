@@ -36,7 +36,7 @@ module.exports = {
             createdAt: new Date(),
             updatedAt: new Date()
           }
-        ], { returning: true });
+        ]);
       }
 
       // Verificar si los proveedores ya existen
@@ -49,18 +49,20 @@ module.exports = {
         // Solo insertar proveedores si no existen
         providers = await queryInterface.bulkInsert('providers', [
           {
-            name: 'Provider 1',
-            contact_email: 'provider1@example.com',
-            api_key: 'provider1-api-key',
-            is_active: true
+            name: 'Provider 3',
+            contact_email: 'provider3@example.com',
+            api_key: 'provider3-api-key',
+            is_active: true,
+            country: 'CO' // Ajusta según sea necesario
           },
           {
-            name: 'Provider 2',
-            contact_email: 'provider2@example.com',
-            api_key: 'provider2-api-key',
-            is_active: true
+            name: 'Provider 4',
+            contact_email: 'provider4@example.com',
+            api_key: 'provider4-api-key',
+            is_active: true,
+            country: 'CO' // Ajusta según sea necesario
           }
-        ], { returning: true });
+        ]);
       } else {
         // Si los proveedores ya existen, obtén sus IDs para las transacciones
         console.log('Providers already exist:', existingProviders[0]);
@@ -69,40 +71,38 @@ module.exports = {
 
       // Generar 50 transacciones fake
       const transactions = [];
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 1; i++) {
         const transaction = {
           transaction_type: faker.helpers.arrayElement(['payin', 'payout']),
-          amount: faker.finance.amount(50, 1000, 2),
+          amount: parseFloat(faker.finance.amount(50, 1000, 2)),
           status: faker.helpers.arrayElement(['pending', 'approved', 'rejected']),
           transaction_date: faker.date.recent(),
-          description: faker.lorem.sentence(),
-          issueDate: faker.date.past(),
-          dueDate: faker.date.future(),
           reference: faker.string.uuid(),
           currency: faker.finance.currencyCode(),
-          numdoc: faker.string.alphanumeric(10),
+          numdoc: faker.string.numeric(10),
           username: faker.person.fullName(),
           userphone: faker.phone.number(),
-          useremail: faker.internet.email(), // Asegúrate de incluir el email
-          typetransaction: faker.finance.transactionType(),
-          method: faker.helpers.arrayElement(['credit_card', 'bank_transfer', 'paypal', 'crypto']),
+          useremail: faker.internet.email(),
+          typetransaction: faker.helpers.arrayElement(['1', '3']), // 1 para pagos en línea, 3 para pagos en efectivo
+          method: faker.helpers.arrayElement(['TUP_GEN', 'TUP_PSE', 'TUP_NEQUI', 'TUP_DAVIPLATA', 'TUP_EFECTY', 'TUP_EFECTIVO']),
           accountNumber: faker.string.numeric(10),
           bankAgreementNumber: faker.finance.bic(),
           paymentReceipt: null,
-          user_id: 2, // Asegúrate de que este usuario exista en la tabla de usuarios
-          provider_id: 1, // Asegúrate de que este proveedor exista en la tabla de proveedores
+          user_id: existingUsers[0][0].user_id, // Asignar el primer usuario
+          provider_id: providers[0].provider_id, // Asignar el primer proveedor
           createdAt: new Date(),
           updatedAt: new Date(),
-          userbank: faker.company.name(), // Cambia a faker.company.name()
-          usertypeaccount: faker.helpers.arrayElement(['checking', 'savings']), // Asegúrate de que los valores sean correctos
-          usernumaccount: Math.random().toString().slice(2, 22), // Genera un número entre 10 y 20 dígitos
+          userbank: faker.company.name(),
+          usertypeaccount: faker.helpers.arrayElement(['checking', 'savings']),
+          usernumaccount: faker.string.numeric(20),
           expiration: faker.date.future(),
+          issueDate: faker.date.past(), // Asegúrate de proporcionar un valor aquí
+          dueDate: faker.date.future() // Asegúrate de proporcionar un valor aquí
         };
+      
 
         transactions.push(transaction);
       }
-
-
 
       // Insertar las transacciones generadas
       await queryInterface.bulkInsert('transactions', transactions);
